@@ -2,7 +2,7 @@
         async defer></script> -->
 
 <!-- Page Top section -->
-<section class="page-top-section set-bg" data-setbg="frontend/assets/img/bgrestaurant.jpg">
+<section class="page-top-section set-bg" back-img="frontend/assets/img/bgrestaurant.jpg">
     <div class="container">
         <h2>Contact us</h2>
     </div>
@@ -40,37 +40,36 @@
                 <form id="contact_form" name="contact_form" class="form-contact">
                     <table>
                         <tr>
-                                <td>Nombre: </td>
-                                    <td id="error_name"><input required ng-model="contact.inputName" name="inputName" type="text" id="cname" placeholder="Nombre" minlength="2" maxlength="100"/>
-                                    <span class="text-danger" ng-show="contact_form.inputName.$error.required && (contact_form.inputName.$dirty || contact_form.inputName.$touched)">Introduzca un nombre</span>
-                                </td>
+                            <td>Nombre: </td>
+                                <td id="error_name"><input required ng-model="contact.inputName" name="inputName" type="text" id="cname" placeholder="Nombre" minlength="2" maxlength="100"/>
+                                <span class="text-danger" ng-show="contact_form.inputName.$error.required && (contact_form.inputName.$dirty || contact_form.inputName.$touched)">Introduzca un nombre</span>
+                            </td>
                         </tr>
                         <tr>
-                                <td>Correo electronico: </td>
-                                    <td id="error_emial"><input type="email" ng-model="contact.inputEmail" id="inputEmail" name="inputEmail" required placeholder="Correo electronico" maxlength="100" ng-pattern="/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i"/>
-                                    <span class="text-danger" ng-show="contact_form.inputEmail.$error.required && (contact_form.inputEmail.$dirty || contact_form.inputEmail.$touched)">Introduzca un email</span>
-                                    <span class="text-danger" ng-show="contact_form.inputEmail.$error.email">El formato del email es invalido</span>
-                                </td>
-            
+                            <td>Correo electronico: </td>
+                                <td id="error_emial"><input type="email" ng-model="contact.inputEmail" id="inputEmail" name="inputEmail" required placeholder="Correo electronico" maxlength="100" ng-pattern="/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i"/>
+                                <span class="text-danger" ng-show="contact_form.inputEmail.$error.required && (contact_form.inputEmail.$dirty || contact_form.inputEmail.$touched)">Introduzca un email</span>
+                                <span class="text-danger" ng-show="contact_form.inputEmail.$error.email">El formato del email es invalido</span>
+                            </td>
                         </tr>
                         <tr>
-                                <td>Asunto: </td>
-                                <td>
-                                    <input required ng-model="contact.inputSubject" type="text" id="inputSubject" name="inputSubject" placeholder="Motivo" maxlength="100">
-                                    <span class="text-danger" ng-show="contact_form.inputSubject.$error.required && (contact_form.inputSubject.$dirty || contact_form.inputSubject.$touched)">Introduzca un motivo</span>
-                                </td>
+                            <td>Asunto: </td>
+                            <td>
+                                <input required ng-model="contact.inputSubject" type="text" id="inputSubject" name="inputSubject" placeholder="Motivo" maxlength="100">
+                                <span class="text-danger" ng-show="contact_form.inputSubject.$error.required && (contact_form.inputSubject.$dirty || contact_form.inputSubject.$touched)">Introduzca un motivo</span>
+                            </td>
                             </tr>
                             <tr>
-                                <td>Mensaje: </td>
-                                <td id="error_dinfo">
-                                    <textarea required ng-model="contact.inputMessage" name="inputMessage" rows="4" cols="50" id="inputMessage"></textarea>
-                                    <span class="text-danger" ng-show="contact_form.inputMessage.$error.required && (contact_form.inputMessage.$dirty || contact_form.inputMessage.$touched)">Introduzca un mensaje</span>
-                                </td>
+                            <td>Mensaje: </td>
+                            <td id="error_dinfo">
+                                <textarea required ng-model="contact.inputMessage" name="inputMessage" rows="4" cols="50" id="inputMessage"></textarea>
+                                <span class="text-danger" ng-show="contact_form.inputMessage.$error.required && (contact_form.inputMessage.$dirty || contact_form.inputMessage.$touched)">Introduzca un mensaje</span>
+                            </td>
                         </tr>
                         <tr>
-                                <td><input class="btn btn-primary" type="submit" id="submitBtn" name="submit" value="Send"
-                                ng-show="contact_form.inputName.$valid && contact_form.inputEmail.$valid && contact_form.inputSubject.$valid && contact_form.inputMessage.$valid"
-                                ng-click="SubmitContact()"/></td>
+                            <td><input class="btn btn-primary" type="submit" id="submitBtn" name="submit" value="Send"
+                            ng-show="contact_form.inputName.$valid && contact_form.inputEmail.$valid && contact_form.inputSubject.$valid && contact_form.inputMessage.$valid"
+                            ng-click="SubmitContact()"/></td>
                         </tr>
                     </table>
                 </form>

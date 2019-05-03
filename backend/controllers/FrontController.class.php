@@ -10,7 +10,7 @@ class FrontController {
 
     public function FrontController(){
         $this->uri=$_SERVER['REQUEST_URI'];
-        $this->uri=str_replace('/angularjs/',"",$this->uri);
+        $this->uri=str_replace('/angularjs/backend/',"",$this->uri);
 
         $this->run();
     }
@@ -48,9 +48,10 @@ class FrontController {
         
         $this->uri=rtrim($this->uri, '/');
         $cutUrl=explode('/',$this->uri);
-        $this->updateTime($cutUrl);   
+        $this->updateTime($cutUrl);
 
-
+        $_POST = json_decode(file_get_contents('php://input'),true); // true makes it parse as an array
+        
         if (isset($cutUrl[0]) && $cutUrl[0]=='api') {
             if (in_array($cutUrl[1],$allowedPages)){
                 $getParams=array_slice($cutUrl,2);
@@ -62,25 +63,27 @@ class FrontController {
             } else {
                 header('HTTP/1.0 404 Not found');
             }
-        } else {
-            include_once VIEW_PATH_INC . 'top_page.html';
-            include_once VIEW_PATH_INC . 'header.html';
-            include_once LOGIN_VIEW_PATH . 'login.html';
+        } 
+        // angularjs does this now
+        // else {
+        //     include_once VIEW_PATH_INC . 'top_page.html';
+        //     include_once VIEW_PATH_INC . 'header.html';
+        //     include_once LOGIN_VIEW_PATH . 'login.html';
 
-            if (in_array($this->uri,$allowedPages)){
-                if ($cutUrl[0] == 'details'){
-                    $this->loadFiles('shop','/view/',$cutUrl[0],'.html');
-                } else {
-                    $this->loadFiles('frontend/modules/'.$cutUrl[0],'/view/',$cutUrl[0],'.html');
-                }
-            } else if($this->uri==""||$this->uri=="/"){
-                include_once "frontend/modules/home/view/home.html";
-            } else {
-                include_once "404.html";
-            }
+        //     if (in_array($this->uri,$allowedPages)){
+        //         if ($cutUrl[0] == 'details'){
+        //             $this->loadFiles('shop','/view/',$cutUrl[0],'.html');
+        //         } else {
+        //             $this->loadFiles('frontend/modules/'.$cutUrl[0],'/view/',$cutUrl[0],'.html');
+        //         }
+        //     } else if($this->uri==""||$this->uri=="/"){
+        //         include_once "frontend/modules/home/view/home.html";
+        //     } else {
+        //         include_once "404.html";
+        //     }
 
-            include_once VIEW_PATH_INC . 'footer.html';
-        }
+        //     include_once VIEW_PATH_INC . 'footer.html';
+        // }
     }
 }
 ?>

@@ -1,4 +1,4 @@
-restaurantangular.controller('contactCtrl', function($scope){
+restaurantangular.controller('contactCtrl', function($scope,services){
 	$scope.contact = {
         inputName: "",
         inputEmail: "",
@@ -7,10 +7,16 @@ restaurantangular.controller('contactCtrl', function($scope){
     };
     
     $scope.SubmitContact = function () {
-        var data = {"name": $scope.contact.inputName, "email": $scope.contact.inputEmail, 
-        "matter": $scope.contact.inputSubject, "message": $scope.contact.inputMessage,"token":'contact_form'};
-        var contact_form = JSON.stringify(data);
-        console.log(contact_form);
+        var data = {
+            "name": $scope.contact.inputName, 
+            "email": $scope.contact.inputEmail, 
+            "subject": $scope.contact.inputSubject, 
+            "message": $scope.contact.inputMessage
+        };
+
+        services.postF('contact',JSON.stringify(data),'email').then(function (response) {
+            console.log(response);
+        });
         
         // services.post('contact', 'send_cont', contact_form).then(function (response) {
         //     if (response == 'true') {

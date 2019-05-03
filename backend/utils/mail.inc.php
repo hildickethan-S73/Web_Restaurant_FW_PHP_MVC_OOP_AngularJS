@@ -66,14 +66,6 @@ function send_email($data, $mailgundata,$type) {
             # code...
             break;
     }    
-
-    //set_error_handler('ErrorHandler');
-    // try{
-    //     $result = send_mailgun($mailgundata['email'], $mailgundata['email'], $subject, $html, $mailgundata);    
-    // } catch (Exception $e) {
-    //     $return = 0;
-    // }
-    //restore_error_handler();
     return $result;
 }
 
