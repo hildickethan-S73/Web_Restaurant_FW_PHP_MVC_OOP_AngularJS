@@ -1,4 +1,22 @@
-$(document).ready(function () {
+restaurantangular.controller('mainCtrl', function($scope,restaurants){
+    // r = JSON.parse(restaurants);
+    $scope.restaurants = restaurants;
+    $scope.numPerPage = 3;
+    $scope.currentPage = 1;
+
+    $scope.filteredRestaurants = $scope.restaurants.slice(0, 3);
+	$scope.pageChanged = function() {
+	  var startPos = ($scope.currentPage - 1) * 3;
+	  $scope.filteredRestaurants = $scope.restaurants.slice(startPos, startPos + 3);
+	//   console.log($scope.currentPage);
+	};
+	console.log(restaurants);
+});
+
+
+// JQUERY
+// this will mostly be html
+// $(document).ready(function () {
     // function addDetails(post){
     //     $.ajax({
     //         data: post,
@@ -72,4 +90,4 @@ $(document).ready(function () {
     //     }
     // });
     
-});
+// });

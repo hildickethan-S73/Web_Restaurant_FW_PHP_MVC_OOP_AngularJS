@@ -1,7 +1,7 @@
 <!-- Hero section -->
 <section class="hero-section">
 	<div class="hero-slider owl-carousel">
-		<div class="hs-item set-bg" data-setbg="view/img/bgrestaurant.jpg">
+		<div class="hs-item set-bg" back-img="frontend/assets/img/bgrestaurant.jpg">
 			<div class="container">
 				<h2>The Best Restaurants</h2>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris sceleri sque,</p>
@@ -10,7 +10,7 @@
 				<a href="" class="site-btn sb-c1">Read More</a>
 			</div>
 		</div>
-		<div class="hs-item set-bg" data-setbg="view/img/bgrestaurant2.jpg">
+		<div class="hs-item set-bg" back-img="frontend/assets/img/bgrestaurant2.jpg">
 			<div class="container">
 				<h2>The Best Restaurants</h2>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris sceleri sque,</p>
@@ -45,18 +45,41 @@
 		</div>
 		<div class="inputwrap">
 			<input type="text" placeholder="Restaurant name" id="searchname">
-				<div class="dropdown">
-					<div id="dropdown-name" class="dropdown-content">
-					
-					</div>
+			<div class="dropdown">
+				<div id="dropdown-name" class="dropdown-content">
+				
 				</div>
+			</div>
 		</div>
 	</form>
 	<div class="container">
-		<div class="row" id="homerestaurants">
-			
+		<p> Total Results: {{restaurants.length}} <p>
+		<div id="pager">
+			<!-- requires ui.bootstrap imported in app.js -->
+			<uib-pagination class="pagination" 
+				total-items="restaurants.length" 
+				ng-model="currentPage"
+				ng-change="pageChanged()" 
+				previous-text="&lsaquo;" 
+				next-text="&rsaquo;" 
+				items-per-page="numPerPage"
+			/>
+		</div>
+		<div class="row">
+			<div ng-repeat="r in filteredRestaurants" class="col-md-4 feature">
+					<img src="frontend/assets/img/restaurant1.jpg" alt="#">
+					<h4>{{r.name}}</h4>
+			</div>
 		</div>
 	</div>
 	<div id="pagination"></div>
 </section>
 <!-- Feature section end -->
+
+
+<script src="frontend/assets/js/owl.carousel.min.js"></script>
+<script src="frontend/assets/js/bootstrap.min.js"></script>
+<script src="frontend/assets/js/jquery.magnific-popup.min.js"></script>
+<script src="frontend/assets/js/jquery.bootpag.min.js"></script>
+<script src="frontend/assets/js/circle-progress.min.js"></script>
+<script src="frontend/assets/js/main.js"></script>

@@ -5,6 +5,11 @@ restaurantangular.config(['$routeProvider',
                 .when("/", {
                     templateUrl: "frontend/modules/home/view/home.view.html", 
                     controller: "mainCtrl",
+                    resolve: {
+                        restaurants: function (services) {
+                            return services.get('restaurants');
+                        }
+                    }
                 })
 
                 .when("/contact", {
