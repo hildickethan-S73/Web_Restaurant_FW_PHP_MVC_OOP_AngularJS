@@ -29,10 +29,11 @@
         <link rel="stylesheet" href="frontend/assets/css/animate.css"/>
         <link rel="stylesheet" href="frontend/assets/css/dropzone.css"/>
         <link rel="stylesheet" href="frontend/assets/css/pagination.css"/>
-        
+        <link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
+
         <!-- My css-->
         <link href="frontend/assets/css/custom.css" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
+        
     </head>
 
     <body>
@@ -55,13 +56,13 @@
                         </a>
                         <div class="cart-number" id="cart-number"></div>
                     <ul class="main-menu">
-                        <li id="home"><a href="home" data-tr="Home">Home</a></li>
-                        <li id="restaurants"><a href="restaurants">Restaurants</a></li>
-                        <li id="favourites"><a href="favourites">Favourites</a></li>
-                        <li id="aboutus"><a href="aboutus">About Us</a></li>
-                        <li id="services"><a href="services">Services</a></li>
-                        <li id="contact"><a href="contact">Contact us</a></li>
-                        <li id="shop"><a href="shop">Shop</a></li>
+                        <li id="home"><a href="#/home" data-tr="Home">Home</a></li>
+                        <li id="restaurants"><a href="#/restaurants">Restaurants</a></li>
+                        <li id="favourites"><a href="#/favourites">Favourites</a></li>
+                        <li id="aboutus"><a href="#/aboutus">About Us</a></li>
+                        <li id="services"><a href="#/services">Services</a></li>
+                        <li id="contact"><a href="#/contact">Contact us</a></li>
+                        <li id="shop"><a href="#/shop">Shop</a></li>
                     </ul>
                     <div class="header-btns" id="header-btns">
                         <a type="button" id="loginbutton" class="site-btn sb-c2">Login</a>
@@ -80,9 +81,14 @@
         <!--====== AngularJS ======-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-route.min.js"></script>
+        
+        <script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-animate.min.js" ></script> -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-cookies.min.js" ></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script>
         <script src="frontend/app.js"></script>
         <script src="frontend/apiconnector.js"></script>
-        <script src="frontend/common.service.js"></script>
+        <!-- <script src="frontend/common.service.js"></script> -->
         <script src="frontend/common.directives.js"></script>
 
         <footer class="footer-section">
@@ -131,14 +137,6 @@
         <script src="frontend/components/login/view/js/login.js"></script> -->
         <!-- <script src="components/cart/model/cart.js"></script>
         <script src="module/profile/view/js/profile.js"></script> -->
-
-        
-        <!-- <script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script> -->
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-animate.min.js" ></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-cookies.min.js" ></script>-->
-
-        
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.2/ui-bootstrap-tpls.min.js"></script> -->
 
     </body>
 </html>

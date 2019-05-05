@@ -1,4 +1,4 @@
-restaurantangular.controller('contactCtrl', function($scope,services){
+restaurantangular.controller('contactCtrl', function($scope,services,toastr){
 	$scope.contact = {
         inputName: "",
         inputEmail: "",
@@ -16,26 +16,22 @@ restaurantangular.controller('contactCtrl', function($scope,services){
 
         services.postF('contact',JSON.stringify(data),'email').then(function (response) {
             console.log(response);
+            if (response) {
+                    toastr.success('Your message has been sent', 'Success!',{
+                    closeButton: true
+                });
+            } else {
+                    toastr.error('Your message has not been sent', 'Error',{
+                    closeButton: true
+                });
+            }
         });
-        
-        // services.post('contact', 'send_cont', contact_form).then(function (response) {
-        //     if (response == 'true') {
-        //             toastr.success('El mensaje ha sido enviado correctamente', 'Mensaje enviado',{
-        //             closeButton: true
-        //         });
-        //     } else {
-        //             toastr.error('El mensaje no se ha enviado', 'Mensaje no enviado',{
-        //             closeButton: true
-        //         });
-        //     }
-        // });
     };
 });
 
 
 
 
-// JQUERY
 // function initMap() {    
 //     var ontinyent = {lat: 38.8220593, lng: -0.6063927};
 
@@ -70,105 +66,3 @@ restaurantangular.controller('contactCtrl', function($scope,services){
 //         infowindow.open(map, marker);
 //     });
 // }
-
-// ////////////////////////////////////////////////
-// // validation
-// ////////////////////////////////////////////////
-
-
-// function name_validate(name) {
-//     if (name.length > 0) {
-//         var regexp = /^([a-zA-Z0-9]{2,16})$/;
-//         return regexp.test(name);
-//     }
-//     return false;
-// }
-
-// function email_validate(email) {
-//     if (email.length > 0) {
-//         var regexp = /^([a-zA-Z0-9]{2,20}@[a-zA-Z]{2,12}\.[a-z]{2,3})$/; // very basic email check
-//         return regexp.test(email);
-//     }
-//     return false;
-// }
-
-// function subject_validate(subject) {
-//     if (subject.length > 0) {
-//         var regexp = /^([a-zA-Z0-9 \.\,\']{2,50})/;
-//         return regexp.test(subject);
-//     }
-//     return false;
-// }
-
-// function message_validate(message) {
-//     if (message.length > 0) {
-//         var regexp = /^([a-zA-Z0-9 \.\,\'\n&]){2,1000}/;
-//         return regexp.test(message);
-//     }
-//     return false;
-// }
-
-// function validation(field,num){
-//     var result = true;
-//     switch(num){
-//         case 0:
-//             if (!name_validate(field.value))
-//                 result = false;
-//         break;
-
-//         case 1:
-//             if (!email_validate(field.value))
-//                 result = false;
-//         break;
-
-//         case 2:
-//             if (!subject_validate(field.value))
-//                 result = false;
-//         break;
-
-//         case 3:
-//             if (!message_validate(field.value))
-//                 result = false;
-//         break;
-//     }
-    
-//     if(!result)
-//         document.getElementById('contact'+field.name).classList.add('is-not-valid');
-//     else 
-//         document.getElementById('contact'+field.name).classList.remove('is-not-valid');
-
-//     return result;
-// }
-
-// function validate_form(form) {
-//     var result = true;
-//     // console.log(form);
-
-//     $.each(form, function(index){
-//         if(!validation(form[index],index))
-//             result = false;
-//     });
-//     return result;
-// }
-
-// $(document).ready(function () {
-//     $('#contactsubmit').on('click',function(){
-//         // needs validation
-//         var form = $('#contactform').serializeArray();
-//         console.log(form);
-
-//         if (validate_form(form)){
-//             $.ajax({
-//                 url: 'api/contact',
-//                 type: 'POST',
-//                 data: form,
-//                 success: function(data){
-//                     // data = JSON.parse(data);
-//                     console.log(data);
-//                     alert('Your message has been sent to the administrator.');
-//                     window.location.href = 'home';
-//                 }
-//             });
-//         }
-//     });
-// });

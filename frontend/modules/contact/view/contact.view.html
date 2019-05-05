@@ -1,4 +1,4 @@
-<!-- <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo GOOGLEAPI ?>&callback=initMap"
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key={{api}}&callback=initMap"
         async defer></script> -->
 
 <!-- Page Top section -->
@@ -37,49 +37,24 @@
             </div>
             <div class="col-lg-6">
                 <h4 class="contact-title">Get in touch</h4>
-                <form id="contact_form" name="contact_form" class="form-contact">
-                    <table>
-                        <tr>
-                            <td>Nombre: </td>
-                                <td id="error_name"><input required ng-model="contact.inputName" name="inputName" type="text" id="cname" placeholder="Nombre" minlength="2" maxlength="100"/>
-                                <span class="text-danger" ng-show="contact_form.inputName.$error.required && (contact_form.inputName.$dirty || contact_form.inputName.$touched)">Introduzca un nombre</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Correo electronico: </td>
-                                <td id="error_emial"><input type="email" ng-model="contact.inputEmail" id="inputEmail" name="inputEmail" required placeholder="Correo electronico" maxlength="100" ng-pattern="/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*$/i"/>
-                                <span class="text-danger" ng-show="contact_form.inputEmail.$error.required && (contact_form.inputEmail.$dirty || contact_form.inputEmail.$touched)">Introduzca un email</span>
-                                <span class="text-danger" ng-show="contact_form.inputEmail.$error.email">El formato del email es invalido</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Asunto: </td>
-                            <td>
-                                <input required ng-model="contact.inputSubject" type="text" id="inputSubject" name="inputSubject" placeholder="Motivo" maxlength="100">
-                                <span class="text-danger" ng-show="contact_form.inputSubject.$error.required && (contact_form.inputSubject.$dirty || contact_form.inputSubject.$touched)">Introduzca un motivo</span>
-                            </td>
-                            </tr>
-                            <tr>
-                            <td>Mensaje: </td>
-                            <td id="error_dinfo">
-                                <textarea required ng-model="contact.inputMessage" name="inputMessage" rows="4" cols="50" id="inputMessage"></textarea>
-                                <span class="text-danger" ng-show="contact_form.inputMessage.$error.required && (contact_form.inputMessage.$dirty || contact_form.inputMessage.$touched)">Introduzca un mensaje</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input class="btn btn-primary" type="submit" id="submitBtn" name="submit" value="Send"
-                            ng-show="contact_form.inputName.$valid && contact_form.inputEmail.$valid && contact_form.inputSubject.$valid && contact_form.inputMessage.$valid"
-                            ng-click="SubmitContact()"/></td>
-                        </tr>
-                    </table>
+                <form id="contact_form" name="contact_form" class="contact-form">
+                    <input required ng-model="contact.inputName" id="contactname" name="inputName" type="text" placeholder="Name" minlength="2" maxlength="100" ng-pattern="/^([a-zA-Z0-9]{2,16})$/">
+                    <span class="text-danger" ng-show="contact_form.inputName.$error.required && (contact_form.inputName.$dirty || contact_form.inputName.$touched)">Input a name</span>
+
+                    <input required ng-model="contact.inputEmail" id="contactemail" name="inputEmail" type="email" placeholder="E-mail" maxlength="100" ng-pattern="/^([a-zA-Z0-9]{2,20}@[a-zA-Z]{2,12}\.[a-z]{2,3})$/">
+                    <span class="text-danger" ng-show="contact_form.inputEmail.$error.required && (contact_form.inputEmail.$dirty || contact_form.inputEmail.$touched)">Input an email</span>
+                    <span class="text-danger" ng-show="contact_form.inputEmail.$error.email">El formato del email es invalido</span>
+
+                    <input required ng-model="contact.inputSubject" id="contactsubject" name="inputSubject" type="text" placeholder="Subject" maxlength="100" ng-pattern="/^([a-zA-Z0-9 \.\,\']{2,50})/">
+                    <span class="text-danger" ng-show="contact_form.inputSubject.$error.required && (contact_form.inputSubject.$dirty || contact_form.inputSubject.$touched)">Input a subject</span>
+
+                    <textarea required ng-model="contact.inputMessage" id="contactmessage" name="inputMessage" placeholder="Message" rows="4" cols="50" ng-pattern="/^([a-zA-Z0-9 \.\,\'\n&]){2,1000}/"></textarea>
+                    <span class="text-danger" ng-show="contact_form.inputMessage.$error.required && (contact_form.inputMessage.$dirty || contact_form.inputMessage.$touched)">Input a message</span>
+                    
+                    <a id="contactsubmit" type="button" class="site-btn sb-c1" 
+                        ng-show="contact_form.inputName.$valid && contact_form.inputEmail.$valid && contact_form.inputSubject.$valid && contact_form.inputMessage.$valid"
+                        ng-click="SubmitContact()">Submit</a>
                 </form>
-                <!-- <form id="contactform" class="contact-form">
-                    <input id="contactname" name="name" type="text" placeholder="Name">
-                    <input id="contactemail" name="email" type="email" placeholder="E-mail">
-                    <input id="contactsubject" name="subject" type="text" placeholder="Subject">
-                    <textarea id="contactmessage" name="message" placeholder="Message"></textarea>
-                    <a id="contactsubmit" type="button" class="site-btn sb-c1">Submit</a>
-                </form> -->
             </div>
         </div>
         <div class="map" id="map"></div>
