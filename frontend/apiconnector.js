@@ -4,17 +4,31 @@ restaurantangular.factory("services", ['$http','$q', function ($http, $q) {
    
    // all gets with same name doesn't work for me
    // only uses last one
-   obj.get = function (module) {
+   // obj.get = function (module) {
+   //    var defered=$q.defer();
+   //    var promise=defered.promise;
+   //    $http({
+   //          method: 'GET',
+   //          url: serviceBase + module // ie: api/restaurants
+   //    }).success(function(data, status, headers, config) {
+   //       defered.resolve(data);
+   //    }).error(function(data, status, headers, config) {
+   //       defered.reject(data);
+   //    });
+   //    return promise;
+   // };
+   
+   obj.get = function (module, extension = "") {
       var defered=$q.defer();
       var promise=defered.promise;
       $http({
             method: 'GET',
-            url: serviceBase + module // ie: api/restaurants
-      }).success(function(data, status, headers, config) {
-         defered.resolve(data);
-      }).error(function(data, status, headers, config) {
-         defered.reject(data);
-      });
+            url: serviceBase + module + '/' + extension  // ie: api/restaurants/ ie: api/restaurants/type-Gourmet/
+         }).success(function(data, status, headers, config) {
+            defered.resolve(data);
+         }).error(function(data, status, headers, config) {
+            defered.reject(data);
+         });
       return promise;
    };
 
@@ -32,35 +46,6 @@ restaurantangular.factory("services", ['$http','$q', function ($http, $q) {
       return promise;
    };
 
-   // obj.get3 = function (module, functi, dada) {
-   //    var defered=$q.defer();
-   //    var promise=defered.promise;
-   //    $http({
-   //          method: 'GET',
-   //          url: serviceBase + module + '&function=' + functi + '&param=' + dada
-   //       }).success(function(data, status, headers, config) {
-   //          console.log(data);
-   //          defered.resolve(data);
-   //       }).error(function(data, status, headers, config) {
-   //          defered.reject(data);
-   //       });
-   //    return promise;
-   // };
-
-   // obj.get4 = function (module, functi, dada, dada2) {
-   //    var defered=$q.defer();
-   //    var promise=defered.promise;
-   //    $http({
-   //          method: 'GET',
-   //          url: serviceBase + module + '&function=' + functi + '&param=' + dada + '&param2=' + dada2
-   //       }).success(function(data, status, headers, config) {
-   //          //console.log(data);
-   //          defered.resolve(data);
-   //       }).error(function(data, status, headers, config) {
-   //          defered.reject(data);
-   //       });
-   //    return promise;
-   // };
 
    obj.post = function (module, data) {
       var defered=$q.defer();

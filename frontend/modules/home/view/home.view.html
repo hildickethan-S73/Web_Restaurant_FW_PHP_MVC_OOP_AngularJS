@@ -54,9 +54,16 @@
 	</form>
 	<div class="container">
 		<p> Total Results: {{restaurants.length}} <p>
+		<div class="row">
+			<div ng-repeat="r in filteredRestaurants" class="col-md-4 feature">
+					<img src="frontend/assets/img/restaurant1.jpg" alt="#">
+					<h4>{{r.name}}</h4>
+			</div>
+		</div>
 		<div id="pager">
 			<!-- requires ui.bootstrap imported in app.js -->
-			<uib-pagination class="pagination" 
+			<uib-pagination
+				class="pagination" 
 				total-items="restaurants.length" 
 				ng-model="currentPage"
 				ng-change="pageChanged()" 
@@ -65,14 +72,8 @@
 				items-per-page="numPerPage"
 			/>
 		</div>
-		<div class="row">
-			<div ng-repeat="r in filteredRestaurants" class="col-md-4 feature">
-					<img src="frontend/assets/img/restaurant1.jpg" alt="#">
-					<h4>{{r.name}}</h4>
-			</div>
-		</div>
 	</div>
-	<div id="pagination"></div>
+	<div ></div>
 </section>
 <!-- Feature section end -->
 
