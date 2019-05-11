@@ -3,6 +3,7 @@ restaurantangular.controller('mainCtrl', function($scope,restaurants){
   $scope.restaurants = restaurants;
   $scope.numPerPage = 3;
   $scope.currentPage = 1;
+  $scope.test = true;
 
   $scope.filteredRestaurants = $scope.restaurants.slice(0, 3);
 	$scope.pageChanged = function() {
@@ -10,84 +11,45 @@ restaurantangular.controller('mainCtrl', function($scope,restaurants){
 	  $scope.filteredRestaurants = $scope.restaurants.slice(startPos, startPos + 3);
 	//   console.log($scope.currentPage);
 	};
-	console.log(restaurants);
+  // console.log(restaurants);
+  
+  var filteredArray = [];
+  $scope.searchRestaurants = {};
+
+  $scope.complete = function (searched, event) {
+    var id = event.target.id;
+    var output = [];
+    searched['searchname'] = searched['searchname'] || "";
+    //  searched['product_name'] = searched['product_name'] || "";
+    //  searched['available_until'] = searched['available_until'] || "";
+    console.log(searched['searchname']);
+    console.log(id);
+    
+    if (Object.keys($scope.searchRestaurants).length == 0) {
+      $scope.searchRestaurants[id] = restaurants;
+    } else {
+      $scope.searchRestaurants[id] = filteredArray;
+      filteredArray = [];
+    }
+    
+    angular.forEach(restaurants,function(r){
+      if (r['name'].toLowerCase().startsWith(searched['searchname'].toLowerCase()) 
+      //  product['product_name'].toLowerCase().startsWith(searched['product_name'].toLowerCase()) &&
+      //  product['available_until'].toLowerCase().startsWith(searched['available_until'].toLowerCase())
+      ) {
+        filteredArray.push(r);
+        output.push(r['name']);
+      }
+    });
+    console.log(filteredArray);
+    
+    $scope.searchRestaurants[id] = output;
+    
+    console.log($scope.searchRestaurants[id]);
+  }
+  // $scope.fillTextbox = function (string, event) {
+  //    var id = event.target.parentNode.parentNode.children[0].id;
+  //    $scope.searched[id] = string;
+  //    $scope.searchRestaurants[id] = null;
+  // }
 });
-
-
-// JQUERY
-// this will mostly be html
-// $(document).ready(function () {
-    // function addDetails(post){
-    //     $.ajax({
-    //         data: post,
-    //         url: 'api/shop/savedetails-true',
-    //         type: 'POST',
-    //         success: function(){
-    //             window.location.href ="details";
-    //         }
-    //     });
-    // }
-
-    // function paintPage(data){
-    //     var template = "";
-    //     var i = 1;
-    //     var r;
-    //     $.each(data, function(index, restaurant){
-    //         r = document.createElement("div");
-    //         r.classList.add("col-md-4","feature");
-
-    //         template = 
-    //             `<img src="view/img/restaurant${i}.jpg" alt="#">
-    //             <h4>${restaurant.name}</h4>`;
-
-    //         if (i >= 3)
-    //             i = 1;
-    //         else 
-    //             i++;
-
-    //         r.innerHTML = template;
-    //         r.childNodes[0].addEventListener("click", function(){
-    //             addDetails(restaurant);
-    //         });
-    //         $('#homerestaurants').append(r);
-    //     });
-    // }
-    
-    // function removePage(){
-    //     $('#homerestaurants').html('');
-    // }
-
-    // function getPage(start){
-    //     $.ajax({
-    //         url: `api/restaurants/limit-${start},3/orderby-id`,
-    //         type: 'GET',
-    //         success: function(data){
-    //             data = JSON.parse(data);
-    //             paintPage(data);
-    //         }
-    //     });
-    // }
-
-    // $.ajax({
-    //     url: 'api/restaurants/count-1/orderby-id',
-    //     type: 'GET',
-    //     success: function(data){
-    //         data = JSON.parse(data);
-    //         var total_pages = Math.ceil(data[0].rowcount/3);
-    //         getPage(0);
-
-    //         $("#pagination").bootpag({
-    //             total: total_pages,
-    //             page: 1,
-    //             maxVisible: 3,
-    //             next: 'next',
-    //             prev: 'prev'
-    //         }).on("page", function (event, page) {
-    //             var start = (page-1)*3;
-    //             removePage();
-    //             getPage(start);
-    //         });
-    //     }
-    // });
-    
-// });

@@ -34,9 +34,9 @@ restaurantangular.controller('detailsCtrl', function($scope,data,services){
     $scope.data = data[0];
 });
 
-function buildURL(array,num){
+function buildURL(array,func){
     var url = "";
-    switch (num) {
+    switch (func) {
         case 'autocomplete':
             url += 'limit-6/';
             url += `${array['field']}-!${array['name']}!/`;
@@ -45,7 +45,6 @@ function buildURL(array,num){
             break;
         
         case 'search':
-            // url += `limit-${start},3/orderby-id/`;
             for (const field in array) {
                 if (array.hasOwnProperty(field)) {
                     const value = array[field];

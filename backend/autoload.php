@@ -24,9 +24,9 @@ function loadClasses($className){
     }
 
     // module model
-    if (file_exists(MODULES_PATH.strtolower($className).'/model/'.strtolower($className).'.class.php')) {
+    if (file_exists(MODULES_PATH.strtolower($className).'/model/'.$className.'.class.php')) {
         // error_log(print_r($className.' m loaded',1));
-        include_once MODULES_PATH.strtolower($className).'/model/'.strtolower($className).'.class.php';
+        include_once MODULES_PATH.strtolower($className).'/model/'.$className.'.class.php';
     }
 
     // components controller
@@ -36,8 +36,8 @@ function loadClasses($className){
     }
 
     // components model
-    if (file_exists(COMPONENTS_PATH.strtolower($className).'/model/'.strtolower($className).'.class.php')) {
+    if (file_exists(COMPONENTS_PATH.strtolower($className).'/model/'.$className.'.class.php')) {
         // error_log(print_r($className.' m loaded',1));
-        include_once COMPONENTS_PATH.strtolower($className).'/model/'.strtolower($className).'.class.php';
+        include_once COMPONENTS_PATH.strtolower($className).'/model/'.$className.'.class.php';
     }
 }

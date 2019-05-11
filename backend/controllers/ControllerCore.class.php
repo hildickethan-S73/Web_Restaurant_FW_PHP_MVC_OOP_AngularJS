@@ -69,6 +69,7 @@ class ControllerCore{
             }
             $query .= $this->addWhereStatement($data);
         }
+        $query = str_replace('%20', ' ', $query);
         return $query;
     }
     protected function buildPostQuery($data){
