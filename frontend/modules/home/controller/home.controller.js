@@ -1,14 +1,18 @@
-restaurantangular.controller('mainCtrl', function($scope,restaurants){
+restaurantangular.controller('mainCtrl', function($scope,restaurants,searchdata){
   $scope.restaurants = restaurants;
   $scope.numPerPage = 3;
   $scope.currentPage = 1;
-  $scope.test = true;
 
   $scope.filteredRestaurants = $scope.restaurants.slice(0, 3);
-	$scope.pageChanged = function() {
-	  var startPos = ($scope.currentPage - 1) * 3;
-	  $scope.filteredRestaurants = $scope.restaurants.slice(startPos, startPos + 3);
-	};
+  $scope.pageChanged = function() {
+      var startPos = ($scope.currentPage - 1) * 3;
+      $scope.filteredRestaurants = $scope.restaurants.slice(startPos, startPos + 3);
+  };
+  $scope.set = function(data) {
+    searchdata.search.searchname = data['searchname'];
+    searchdata.search.searchtastes = data['searchtastes'];
+    searchdata.search.searchtype = data['searchtype'];
+  }
   
   var filteredArray = [];
   $scope.autocompleteRestaurants = {};
@@ -18,8 +22,6 @@ restaurantangular.controller('mainCtrl', function($scope,restaurants){
     var output = [];
     searchform['searchname'] = searchform['searchname'] || "";
     searchform['searchtastes'] = searchform['searchtastes'] || "";
-    console.log(searchform['searchname']);
-    console.log(searchform['searchtastes']);
     target = id.substring(6);
 
     if (searchform[id] != ""){
@@ -46,7 +48,6 @@ restaurantangular.controller('mainCtrl', function($scope,restaurants){
           }
         }
       });
-      // console.log(filteredArray);
       $scope.autocompleteRestaurants[id] = output;
     } else {
       $scope.autocompleteRestaurants[id] = null;
