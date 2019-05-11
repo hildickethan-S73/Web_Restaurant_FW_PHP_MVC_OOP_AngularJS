@@ -1,5 +1,4 @@
 restaurantangular.controller('mainCtrl', function($scope,restaurants){
-  // r = JSON.parse(restaurants);
   $scope.restaurants = restaurants;
   $scope.numPerPage = 3;
   $scope.currentPage = 1;
@@ -9,47 +8,54 @@ restaurantangular.controller('mainCtrl', function($scope,restaurants){
 	$scope.pageChanged = function() {
 	  var startPos = ($scope.currentPage - 1) * 3;
 	  $scope.filteredRestaurants = $scope.restaurants.slice(startPos, startPos + 3);
-	//   console.log($scope.currentPage);
 	};
-  // console.log(restaurants);
   
   var filteredArray = [];
-  $scope.searchRestaurants = {};
+  $scope.autocompleteRestaurants = {};
 
-  $scope.complete = function (searched, event) {
+  $scope.autocomplete = function (searchform, event) {
     var id = event.target.id;
     var output = [];
-    searched['searchname'] = searched['searchname'] || "";
-    //  searched['product_name'] = searched['product_name'] || "";
-    //  searched['available_until'] = searched['available_until'] || "";
-    console.log(searched['searchname']);
-    console.log(id);
-    
-    if (Object.keys($scope.searchRestaurants).length == 0) {
-      $scope.searchRestaurants[id] = restaurants;
-    } else {
-      $scope.searchRestaurants[id] = filteredArray;
-      filteredArray = [];
-    }
-    
-    angular.forEach(restaurants,function(r){
-      if (r['name'].toLowerCase().startsWith(searched['searchname'].toLowerCase()) 
-      //  product['product_name'].toLowerCase().startsWith(searched['product_name'].toLowerCase()) &&
-      //  product['available_until'].toLowerCase().startsWith(searched['available_until'].toLowerCase())
-      ) {
-        filteredArray.push(r);
-        output.push(r['name']);
+    searchform['searchname'] = searchform['searchname'] || "";
+    searchform['searchtastes'] = searchform['searchtastes'] || "";
+    console.log(searchform['searchname']);
+    console.log(searchform['searchtastes']);
+    target = id.substring(6);
+
+    if (searchform[id] != ""){
+      if (Object.keys($scope.autocompleteRestaurants).length == 0) {
+        $scope.autocompleteRestaurants[id] = restaurants;
+      } else {
+        $scope.autocompleteRestaurants[id] = filteredArray;
+        filteredArray = [];
       }
-    });
-    console.log(filteredArray);
-    
-    $scope.searchRestaurants[id] = output;
-    
-    console.log($scope.searchRestaurants[id]);
+      
+      angular.forEach(restaurants,function(r){
+        if (searchform['searchtype'] == "Type" || searchform['searchtype'] ==  undefined){
+          if (r['name'].toLowerCase().startsWith(searchform['searchname'].toLowerCase()) && 
+              r['tastes'].toLowerCase().startsWith(searchform['searchtastes'].toLowerCase())) {
+            filteredArray.push(r);
+            output.push(r[target]);
+          }
+        } else {
+          if (r['name'].toLowerCase().startsWith(searchform['searchname'].toLowerCase()) &&
+              r['type'] == searchform['searchtype'] &&
+              r['tastes'].toLowerCase().startsWith(searchform['searchtastes'].toLowerCase())) {
+            filteredArray.push(r);
+            output.push(r[target]);
+          }
+        }
+      });
+      // console.log(filteredArray);
+      $scope.autocompleteRestaurants[id] = output;
+    } else {
+      $scope.autocompleteRestaurants[id] = null;
+    }
   }
-  // $scope.fillTextbox = function (string, event) {
-  //    var id = event.target.parentNode.parentNode.children[0].id;
-  //    $scope.searched[id] = string;
-  //    $scope.searchRestaurants[id] = null;
-  // }
+
+  $scope.fillTextbox = function (string, event) {
+    var id = event.target.parentNode.parentNode.parentNode.children[0].id;
+    $scope.searchform[id] = string;
+    $scope.autocompleteRestaurants[id] = null;
+  }
 });

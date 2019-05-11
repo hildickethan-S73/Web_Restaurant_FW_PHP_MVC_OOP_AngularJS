@@ -28,7 +28,7 @@
 <section class="feature-section spad">
 	<a href="#/shop"><input class="site-btn sb-c1 searchbutton" type="button" id="searchbutton_home" value="Search"></a>
 	<form class="row search-bar-restaurants" id="searchform" name="searchform">
-		<select class="custom-select" id="searchtype">
+		<select class="custom-select" id="searchtype" ng-model="searchform.searchtype">
 			<option>Type</option>
 			<option>Gourmet</option>
 			<option>Fast Food</option>
@@ -36,47 +36,23 @@
 		</select>
 
 		<div class="inputwrap">
-			<input type="text" placeholder="Tastes" id="searchtastes">
+			<input type="text" placeholder="Tastes" id="searchtastes" ng-model="searchform.searchtastes"
+				ng-keyup="autocomplete(searchform, $event)">
 			<div class="dropdown">
-				<div id="dropdown-tastes" class="dropdown-content">
-				
+				<div class="dropdown-content">
+					<a ng-repeat="r in autocompleteRestaurants.searchtastes | limitTo:7 track by $index" ng-click="fillTextbox(r,$event)">{{r}}</a>
 				</div>
 			</div>
 		</div>
 		<div class="inputwrap">
 			<input type="text" placeholder="Restaurant name" id="searchname" ng-model="searchform.searchname"
-				ng-keyup="complete(searchform, $event)">
+				ng-keyup="autocomplete(searchform, $event)">
 			<div class="dropdown">
-				<div id="dropdown-name" class="dropdown-content">
-					<a ng-repeat="r in searchRestaurants.searchname">{{r}}</a>
+				<div class="dropdown-content">
+					<a ng-repeat="r in autocompleteRestaurants.searchname | limitTo:7 track by $index" ng-click="fillTextbox(r,$event)">{{r}}</a>
 				</div>
 			</div>
 		</div>
-
-		<!-- <input placeholder="Product code" type="text" name="country" id="product_code" 
-			ng-model="searched.product_code" ng-keyup="complete(searched,$event)" class="form-control" />
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="produ in filteredProducts.product_code | limitTo:7" 
-			ng-click="fillTextbox(produ,$event)">{{produ}}</li>
-		</ul>
-		</div> -->
-
-		<div class="md-form my-0">
-			<input placeholder="Product name" type="text" name="country" id="product_name" ng-model="searched.product_name" 
-				ng-keyup="complete(searched,$event)" class="form-control" />
-			<ul class="list-group">
-				<li class="list-group-item" ng-repeat="produ in filteredProducts.product_name | limitTo:7" 
-					ng-click="fillTextbox(produ,$event)">{{produ}}</li>
-			</ul>
-		</div>
-<!-- 
-		<div class="md-form my-0">
-			<input placeholder="Available until" type="text" name="country" id="available_until" ng-model="searched.available_until" ng-keyup="complete(searched,$event)" class="form-control" />
-			<ul class="list-group">
-				<li class="list-group-item" ng-repeat="produ in filteredProducts.available_until | limitTo:7" ng-click="fillTextbox(produ,$event)">{{produ}}</li>
-			</ul>
-
-		</div> -->
 	</form>
 
 	<!-- todo: directive -->
