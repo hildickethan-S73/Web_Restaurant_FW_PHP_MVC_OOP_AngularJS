@@ -1,3 +1,5 @@
+// not implemented
+// i dont like directives
 restaurantangular.directive('shopRestaurants', function() {
     var controller = ['$scope', 'services', function($scope,services) {
         services.get('restaurants').then(function(response){
