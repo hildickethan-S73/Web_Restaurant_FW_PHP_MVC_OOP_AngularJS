@@ -14,6 +14,7 @@ restaurantangular.controller('mainCtrl', function($scope,restaurants,searchdata)
     searchdata.search.searchtype = data['searchtype'];
   }
   
+  
   var filteredArray = [];
   $scope.autocompleteRestaurants = {};
 
