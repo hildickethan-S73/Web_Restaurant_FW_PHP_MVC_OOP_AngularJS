@@ -105,6 +105,8 @@ function getRestaurants(name,tastes,type,services,$scope){
     services.get('restaurants', extension).then(function (response) {
         $scope.restaurants = response;
         $scope.filteredRestaurants = $scope.restaurants.slice(0, 3);
+        if (response.length == 1)
+            location.href = `#/shop/${response[0].id}`
         // console.log(extension);
     });
 }
