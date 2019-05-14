@@ -1,11 +1,16 @@
+<!-- ng-class="{'error' : registerF.username.$error.required && (registerF.username.$dirty || registerF.username.$touched)}" -->
 <div id="login-block" class="login-page">
     <div class="l-r-form" id="loginform">
-        <form class="register-form" role="form" id="register-form" >
-            <input type="text" name="usernameregister" placeholder="username" id="usernameregister" autocomplete="off"/>
-            <input type="password" name="passwordregister" placeholder="password" id="passwordregister" autocomplete="off"/>
-            <input type="password" name="password2register" placeholder="retype password" id="password2register" autocomplete="off"/>
-            <input type="text" name="emailregister" placeholder="email address" id="emailregister"/>
-            <a type="button" class="login-button-r" id="registerbutton">Register</a>
+        <form class="register-form" role="form" id="register-form" name="register-form">
+            <input required 
+                ng-model="registerF.username" 
+                minlength="4" maxlength="16" ng-pattern="/^([a-zA-Z0-9])$/"
+                type="text" name="username" placeholder="username" id="username" autocomplete="off"/>
+                <span class="text-danger" ng-show="register-form.username.$error.required && (register-form.username.$dirty || register-form.username.$touched)">si</span>
+            <input required ng-model="registerF.password" type="password" name="password" placeholder="password" id="password" autocomplete="off"/>
+            <input required ng-model="registerF.password2" type="password" name="password2" placeholder="retype password" id="password2" autocomplete="off"/>
+            <input required ng-model="registerF.email" type="text" name="email" placeholder="email address" id="email"/>
+            <a ng-click="register()" type="button" class="login-button-r" id="registerbutton">Register</a>
             <p class="message">Already registered? <a ng-click="changeForm($event)" id="signin">Sign In</a></p>
         </form>
 

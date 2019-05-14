@@ -4,14 +4,15 @@ restaurantangular.controller('loginCtrl', function ($scope) {
         var current = event.target.parentNode.parentNode;
         var register = event.target.parentNode.parentNode.parentNode.children[0];
         current.style.display = "none";
-
         (current == register) ? current.parentNode.children[1].style.display = "block" : register.style.display = "block";
-
         // if (current == register)
         //     current.parentNode.children[1].style.display = "block";
         // else 
         //     register.style.display = "block";
+    };
 
+    $scope.register = function() {
+      console.log($scope.registerF);  
     };
 });
 
