@@ -1,5 +1,6 @@
 restaurantangular.controller('menuCtrl', function($scope,CommonService){
     $scope.open = function(){
-        CommonService.openModal();
+        CommonService.openModal('frontend/components/login/view/login.view.html','loginCtrl');
     }
+
 });

@@ -13,13 +13,12 @@ restaurantangular.factory("CommonService", ['$uibModal',function ($uibModal) {
   service.openModal = openModal;
   return service;
 
-  function openModal() {
+  function openModal(html,ctrl) {
       var modalInstance = $uibModal.open({
         animation: 'true',
-        templateUrl: 'frontend/components/login/view/login.view.html',
-        controller: 'loginCtrl',
-        windowClass : 'show',
-        size: "lg"
+        templateUrl: html,
+        controller: ctrl,
+        windowClass : 'show'
         // ,
         // resolve: {
         //            dog: function (services, $route) {

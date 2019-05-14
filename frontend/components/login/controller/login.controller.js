@@ -1,6 +1,17 @@
-restaurantangular.controller('loginCtrl', function ($scope,$uibModalInstance,CommonService) {
-    $scope.close = function () {
-        $uibModalInstance.dismiss('cancel');
+restaurantangular.controller('loginCtrl', function ($scope) {
+    $scope.changeForm = function(event) {
+        // cringe
+        var current = event.target.parentNode.parentNode;
+        var register = event.target.parentNode.parentNode.parentNode.children[0];
+        current.style.display = "none";
+
+        (current == register) ? current.parentNode.children[1].style.display = "block" : register.style.display = "block";
+
+        // if (current == register)
+        //     current.parentNode.children[1].style.display = "block";
+        // else 
+        //     register.style.display = "block";
+
     };
 });
 

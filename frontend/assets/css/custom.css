@@ -333,10 +333,8 @@ display: block;
   margin: auto;
   z-index: 200;
   position: fixed;
-  background: rgba(0, 0, 0, 0.7);
   height:100%;
   
-  display:none; /* default hidden */
 }
 .l-r-form {
   position: relative;
