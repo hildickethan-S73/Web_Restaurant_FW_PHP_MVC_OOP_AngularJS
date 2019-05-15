@@ -2,14 +2,14 @@
 <div id="login-block" class="login-page">
     <div class="l-r-form" id="loginform">
         <form class="register-form" role="form" id="register-form" name="register-form">
+            <!-- need to fix validation -->
             <input required 
                 ng-model="registerF.username" 
-                minlength="4" maxlength="16" ng-pattern="/^([a-zA-Z0-9])$/"
                 type="text" name="username" placeholder="username" id="username" autocomplete="off"/>
-                <span class="text-danger" ng-show="register-form.username.$error.required && (register-form.username.$dirty || register-form.username.$touched)">si</span>
+                <!-- <span class="text-danger" ng-show="register-form.username.$error.required && (register-form.username.$dirty || register-form.username.$touched)">si</span> -->
             <input required ng-model="registerF.password" type="password" name="password" placeholder="password" id="password" autocomplete="off"/>
             <input required ng-model="registerF.password2" type="password" name="password2" placeholder="retype password" id="password2" autocomplete="off"/>
-            <input required ng-model="registerF.email" type="text" name="email" placeholder="email address" id="email"/>
+            <input required ng-model="registerF.email" type="email" name="email" placeholder="email address" id="email"/>
             <a ng-click="register()" type="button" class="login-button-r" id="registerbutton">Register</a>
             <p class="message">Already registered? <a ng-click="changeForm($event)" id="signin">Sign In</a></p>
         </form>

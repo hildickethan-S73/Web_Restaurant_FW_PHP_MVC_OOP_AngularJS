@@ -1,4 +1,4 @@
-restaurantangular.controller('loginCtrl', function ($scope) {
+restaurantangular.controller('loginCtrl', function ($scope,services,toastr) {
     $scope.changeForm = function(event) {
         // cringe
         var current = event.target.parentNode.parentNode;
@@ -12,7 +12,31 @@ restaurantangular.controller('loginCtrl', function ($scope) {
     };
 
     $scope.register = function() {
-      console.log($scope.registerF);  
+        $scope.registerF.avatar = `https://api.adorable.io/avatars/256/${$scope.registerF.username}`;
+        services.get('login',`request-true/email-${$scope.registerF.email}`).then(function (response){
+            if(!response[0]){
+                services.get('login',`request-true/username-${$scope.registerF.username}`).then(function (response){
+                    if(!response[0]){
+                        services.postF('login',$scope.registerF,'register').then(function (response){
+                            console.log(response);
+                            if (response){
+                                toastr.success('Registered', 'Success',{
+                                    closeButton: true
+                                });
+                            }
+                        });
+                    } else {
+                        toastr.error('Username already exists', 'Error',{
+                            closeButton: true
+                        });
+                    }
+                });
+            } else {
+                toastr.error('Email already exists', 'Error',{
+                    closeButton: true
+                });
+            }
+        });
     };
 });
 

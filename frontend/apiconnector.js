@@ -53,7 +53,7 @@ restaurantangular.factory("services", ['$http','$q', function ($http, $q) {
       $http({
             method: 'POST',
             url: serviceBase + module, // ie: api/restaurants 
-            data: data
+            data: {"data": data}
       }).success(function(data, status, headers, config) {
          defered.resolve(data);
       }).error(function(data, status, headers, config) {
@@ -69,7 +69,7 @@ restaurantangular.factory("services", ['$http','$q', function ($http, $q) {
       $http({
             method: 'POST',
             url: serviceBase + module + '/' + functi + '-true', // ie: api/contact/email-true 
-            data: data
+            data: {"data": data}
       }).success(function(data, status, headers, config) {
          defered.resolve(data);
       }).error(function(data, status, headers, config) {

@@ -4,6 +4,7 @@ $object = Login::getInstance();
 
 if ($method == 'POST'){
     if (isset($_GET['register']) && $_GET['register']){
+        debugPHP($_POST['data']);
         unset($_POST['data']['password2']);
         $_POST['data']['password']=password_hash($_POST['data']['password'],PASSWORD_BCRYPT);
         $_POST['data'] = json_encode($_POST['data']);
@@ -55,6 +56,13 @@ if ($method == 'POST'){
             }
         }
     }
+    // cringe
+    if (isset($_GET['request']) && $_GET['request']){
+        unset($_GET['request']);
+        include_once CONTROLLER_PATH.'ApiController.class.php';
+        echo json_encode($results);
+    }
+
 } else if ($method == 'DELETE'){
     if (isset($_GET['logout']) && $_GET['logout']){
         if (isset($_SESSION['user'])){
