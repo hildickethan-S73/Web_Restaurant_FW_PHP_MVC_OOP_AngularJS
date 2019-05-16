@@ -15,9 +15,9 @@
         </form>
 
         <form class="login-form" role="form" id="login-form">
-            <input type="text" name="usernamelogin" placeholder="username" id="usernamelogin" autocomplete="off"/>
-            <input type="password" name="passwordlogin" placeholder="password" id="passwordlogin" autocomplete="off"/>
-            <a type="button" class="login-button-l" id="loginformbutton">Login</a>
+            <input required ng-model="loginF.username" type="text" name="usernamelogin" placeholder="username" id="usernamelogin" autocomplete="off"/>
+            <input required ng-model="loginF.password" type="password" name="passwordlogin" placeholder="password" id="passwordlogin" autocomplete="off"/>
+            <a ng-click="login()" type="button" class="login-button-l" id="loginformbutton">Login</a>
             <p class="message">Forgotten password? <a href="#" id="lostpw">Click here</a></p>
             <p class="message">Not registered? <a ng-click="changeForm($event)" id="reg">Create an account</a></p>
         </form>

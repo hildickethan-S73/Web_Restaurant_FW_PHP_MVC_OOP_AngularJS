@@ -1,7 +1,12 @@
 <?php
 $method = $_SERVER['REQUEST_METHOD'];
 $object = Login::getInstance();
+include_once LOGIN_UTILS_PATH.'JWT.php';
+use Firebase\JWT\JWT;
+$secret = 'jordilg13';
 
+// $JWT = JWT::decode($JWT,'secret',array('HS256'));
+// debugPHP($JWT);
 if ($method == 'POST'){
     if (isset($_GET['register']) && $_GET['register']){
         debugPHP($_POST['data']);
@@ -9,6 +14,18 @@ if ($method == 'POST'){
         $_POST['data']['password']=password_hash($_POST['data']['password'],PASSWORD_BCRYPT);
         $_POST['data'] = json_encode($_POST['data']);
         include_once CONTROLLER_PATH.'ApiController.class.php';
+
+        // send verification email
+        // if ($results){
+        //     // JWT
+        //     $payload = array(
+        //         "message" => 'raulojeda22',
+        //         "exp" => time()+20
+        //     );
+        //     $token = JWT::encode($payload,$secret);
+        //     $_SESSION['emailtoken'] = $token;
+            
+        // }
         echo json_encode($results);
     }
 
@@ -28,7 +45,14 @@ if ($method == 'POST'){
         
         if($results){
             if(password_verify($loginpassword,$results[0]->password)){
+                // JWT
+                $payload = array(
+                    "message" => 'login',
+                    "exp" => time()+20
+                );
                 $_SESSION['user']=$results;
+                $_SESSION['user']['token'] = JWT::encode($payload,$secret);
+                echo json_encode($_SESSION['user']);
             } else {
                 echo 'badpw';
             }

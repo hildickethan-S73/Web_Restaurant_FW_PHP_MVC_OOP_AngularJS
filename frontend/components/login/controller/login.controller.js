@@ -38,6 +38,29 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr) {
             }
         });
     };
+    $scope.login = function() {
+        if ($scope.loginF.password == undefined) 
+            $scope.loginF.password = 1;
+        if ($scope.loginF.username == undefined) 
+            $scope.loginF.username = 1;
+        services.get('login',`login-true/username-${$scope.loginF.username}/password-${$scope.loginF.password}`).then(function (response){
+            switch (response) {
+                case 'badpw':
+                    toastr.error('Incorrect password', 'Error',{
+                        closeButton: true
+                    });
+                    break;
+                case 'nouser':
+                    toastr.error('User doesn\'t exist', 'Error',{
+                        closeButton: true
+                    });
+                    break;
+                default:
+                    console.log(response);
+                    break;
+            }
+        });
+    };
 });
 
 
