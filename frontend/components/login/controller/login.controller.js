@@ -1,4 +1,4 @@
-restaurantangular.controller('loginCtrl', function ($scope,services,toastr) {
+restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userdata) {
     $scope.changeForm = function(event) {
         // cringe
         var current = event.target.parentNode.parentNode;
@@ -39,27 +39,33 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr) {
         });
     };
     $scope.login = function() {
-        if ($scope.loginF.password == undefined) 
-            $scope.loginF.password = 1;
-        if ($scope.loginF.username == undefined) 
-            $scope.loginF.username = 1;
-        services.get('login',`login-true/username-${$scope.loginF.username}/password-${$scope.loginF.password}`).then(function (response){
-            switch (response) {
-                case 'badpw':
-                    toastr.error('Incorrect password', 'Error',{
-                        closeButton: true
-                    });
-                    break;
-                case 'nouser':
-                    toastr.error('User doesn\'t exist', 'Error',{
-                        closeButton: true
-                    });
-                    break;
-                default:
-                    console.log(response);
-                    break;
-            }
-        });
+        if ($scope.loginF.password != undefined && $scope.loginF.username != undefined){
+            services.get('login',`login-true/username-${$scope.loginF.username}/password-${$scope.loginF.password}`).then(function (response){
+                switch (response) {
+                    case 'badpw':
+                        toastr.error('Incorrect password', 'Error',{
+                            closeButton: true
+                        });
+                        break;
+                    case 'nouser':
+                        toastr.error('User doesn\'t exist', 'Error',{
+                            closeButton: true
+                        });
+                        break;
+
+                    default:
+                        if (response['id']){
+                            userdata.user=reponse;
+                            console.log(userdata);
+                        }
+                        break;
+                }
+            });
+        } else {
+            toastr.error('Missing username or password', 'Error',{
+                closeButton: true
+            });
+        }
     };
 });
 

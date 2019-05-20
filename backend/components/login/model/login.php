@@ -46,12 +46,13 @@ if ($method == 'POST'){
         if($results){
             if(password_verify($loginpassword,$results[0]->password)){
                 // JWT
+                $_SESSION['user']=$results[0];
                 $payload = array(
-                    "message" => 'login',
+                    "message" => $_SESSION['user']->username,
                     "exp" => time()+20
                 );
-                $_SESSION['user']=$results;
-                $_SESSION['user']['token'] = JWT::encode($payload,$secret);
+                $_SESSION['user']->token = JWT::encode($payload,$secret);
+                $_SESSION['user']->password = "";
                 echo json_encode($_SESSION['user']);
             } else {
                 echo 'badpw';
