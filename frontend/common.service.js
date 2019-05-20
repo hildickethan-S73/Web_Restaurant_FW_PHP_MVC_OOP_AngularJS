@@ -19,12 +19,6 @@ restaurantangular.factory("CommonService", ['$uibModal',function ($uibModal) {
         templateUrl: html,
         controller: ctrl,
         windowClass : 'show'
-        // ,
-        // resolve: {
-        //            dog: function (services, $route) {
-        //                 return services.get(modul, funct, chip);
-        //             }
-        //         }
     });
   }
 }]);

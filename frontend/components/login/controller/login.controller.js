@@ -55,8 +55,9 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userd
 
                     default:
                         if (response['id']){
-                            userdata.user=reponse;
+                            userdata.user=response;
                             console.log(userdata);
+                            $scope.$emit('login');
                         }
                         break;
                 }

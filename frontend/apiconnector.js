@@ -93,14 +93,13 @@ restaurantangular.factory("services", ['$http','$q', function ($http, $q) {
       return promise;
    };
 
-   obj.delete = function (module, functi, dada) {
+   obj.deleteF = function (module, functi) {
       var defered=$q.defer();
       var promise=defered.promise;
       $http({
             method: 'DELETE',
-            url: serviceBase + module + '&function=' + functi + '&param=' + dada
+            url: serviceBase + module + '/' + functi + '-true' // ie: api/login/logout-true 
          }).success(function(data, status, headers, config) {
-            //console.log(data);
             defered.resolve(data);
          }).error(function(data, status, headers, config) {
             defered.reject(data);

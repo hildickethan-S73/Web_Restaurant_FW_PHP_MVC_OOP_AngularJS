@@ -66,7 +66,7 @@ if ($method == 'POST'){
         if (isset($_SESSION['user'])){
             echo json_encode($_SESSION['user']);
         } else {
-            echo json_encode('notlogged');
+            echo 'notlogged';
         }
     }
 
@@ -93,6 +93,9 @@ if ($method == 'POST'){
         if (isset($_SESSION['user'])){
             unset($_SESSION['user']);
             session_destroy();
+            if (!isset($_SESSION['user'])){
+                echo "success";
+            } 
         } 
     }
 }
