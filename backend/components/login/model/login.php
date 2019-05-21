@@ -3,33 +3,26 @@ $method = $_SERVER['REQUEST_METHOD'];
 $object = Login::getInstance();
 include_once LOGIN_UTILS_PATH.'JWT.php';
 use Firebase\JWT\JWT;
-$secret = 'jordilg13';
+$secret = parse_ini_file(INI_PATH.'jwt.ini');
+$secret = $secret['secret'];
 
-// $JWT = JWT::decode($JWT,'secret',array('HS256'));
-// debugPHP($JWT);
 if ($method == 'POST'){
     if (isset($_GET['register']) && $_GET['register']){
-        debugPHP($_POST['data']);
         unset($_POST['data']['password2']);
         $_POST['data']['password']=password_hash($_POST['data']['password'],PASSWORD_BCRYPT);
+        $email = $_POST['data']['email'];
+
         $_POST['data'] = json_encode($_POST['data']);
         include_once CONTROLLER_PATH.'ApiController.class.php';
 
-        // send verification email
-        // if ($results){
-        //     // JWT
-        //     $payload = array(
-        //         "message" => 'raulojeda22',
-        //         "exp" => time()+20
-        //     );
-        //     $token = JWT::encode($payload,$secret);
-        //     $_SESSION['emailtoken'] = $token;
-            
-        // }
+        include_once UTILS_PATH.'mail.inc.php';
+        $mailgundata = parse_ini_file(INI_PATH.'mailgun.ini');
+        $results = send_email($email, $mailgundata, 'activation');
+
         echo json_encode($results);
     }
 
-    if (isset($_GET['email']) && $_GET['email']){
+    if (isset($_GET['recoveremail']) && $_GET['recoveremail']){
         include_once UTILS_PATH.'mail.inc.php';
 
         $mailgundata = parse_ini_file(INI_PATH.'mailgun.ini');

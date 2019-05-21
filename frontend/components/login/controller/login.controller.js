@@ -20,7 +20,7 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userd
                         services.postF('login',$scope.registerF,'register').then(function (response){
                             console.log(response);
                             if (response){
-                                toastr.success('Registered', 'Success',{
+                                toastr.success('Registered, check your email to activate your account', 'Success',{
                                     closeButton: true
                                 });
                             }
@@ -61,6 +61,7 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userd
                             // contact with menu controller
                             $rootScope.loggedin = true;
                             $rootScope.user = userdata.user;
+                            localStorage.setItem('token',userdata.user.token);
 
                             // close modal
                             $uibModalInstance.dismiss('cancel');

@@ -8,7 +8,7 @@ restaurantangular.controller('menuCtrl', function($scope,CommonService,userdata,
             $rootScope.loggedin=true;
             userdata = response;
             $rootScope.user = userdata;
-            console.log($rootScope.user);
+            // console.log($rootScope.user);
         } else {
             $rootScope.loggedin=false;
         }
@@ -19,6 +19,7 @@ restaurantangular.controller('menuCtrl', function($scope,CommonService,userdata,
             if(response == "success"){
                 $rootScope.loggedin=false;
                 userdata = "";
+                localStorage.removeItem('token');
                 toastr.success('Logged out', 'Success',{
                     closeButton: true
                 });

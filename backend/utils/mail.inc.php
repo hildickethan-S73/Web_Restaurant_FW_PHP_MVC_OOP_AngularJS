@@ -61,6 +61,37 @@ function send_email($data, $mailgundata,$type) {
                 $return = 0;
             }
             break;
+
+        case 'activation':
+            $subject = 'Account activation';
+            $message = 'Thank you for registering.';
+            $message2 = 'Click on the following link to reset your password';
+            $link = 'pepega';
+            $address = $data;
+            
+            $html .= "Subject: ";
+            $html .= "<b>". $subject ."</b>";
+            $html .= "<br><br>";
+    
+            $html .= "Message:";
+            $html .= "<br><br>";
+            $html .= $message;
+            $html .= "<br>";
+            $html .= $message2;
+            $html .= "<br>";
+            $html .= $link;
+            $html .= "<br><br>";
+            $html .= "This email would have been sent to: ".$address;
+            $html .= "<br><br>";
+
+            $html .= "</body>";
+            $html .= "</html>";
+            try{
+                $result = send_mailgun($mailgundata['email'], $mailgundata['email'], $subject, $html, $mailgundata);    
+            } catch (Exception $e) {
+                $return = 0;
+            }
+            break;
         
         default:
             # code...
