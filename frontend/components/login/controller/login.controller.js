@@ -1,4 +1,4 @@
-restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userdata) {
+restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userdata,$rootScope,$uibModalInstance) {
     $scope.changeForm = function(event) {
         // cringe
         var current = event.target.parentNode.parentNode;
@@ -55,9 +55,19 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userd
 
                     default:
                         if (response['id']){
+                            // service for faster client loading if no refresh
                             userdata.user=response;
-                            console.log(userdata);
-                            $scope.$emit('login');
+
+                            // contact with menu controller
+                            $rootScope.loggedin = true;
+                            $rootScope.user = userdata.user;
+
+                            // close modal
+                            $uibModalInstance.dismiss('cancel');
+
+                            toastr.success('Logged in', 'Success',{
+                                closeButton: true
+                            });
                         }
                         break;
                 }

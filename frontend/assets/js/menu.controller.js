@@ -1,30 +1,23 @@
-restaurantangular.controller('menuCtrl', function($scope,CommonService,userdata,services,toastr){
+restaurantangular.controller('menuCtrl', function($scope,CommonService,userdata,services,toastr,$rootScope){
     $scope.open = function(){
         CommonService.openModal('frontend/components/login/view/login.view.html','loginCtrl');
     }
 
-    $scope.$on('login',function(){
-        $scope.loggedin=true;
-        userdata = response;
-        $scope.user = userdata;
-        console.log($scope.user);
-    });
-
     services.getF('login','check').then(function(response){
         if (response != "notlogged"){
-            $scope.loggedin=true;
+            $rootScope.loggedin=true;
             userdata = response;
-            $scope.user = userdata;
-            console.log($scope.user);
+            $rootScope.user = userdata;
+            console.log($rootScope.user);
         } else {
-            $scope.loggedin=false;
+            $rootScope.loggedin=false;
         }
     });
 
     $scope.logout = function(){
         services.deleteF('login','logout').then(function(response){
             if(response == "success"){
-                $scope.loggedin=false;
+                $rootScope.loggedin=false;
                 userdata = "";
                 toastr.success('Logged out', 'Success',{
                     closeButton: true
