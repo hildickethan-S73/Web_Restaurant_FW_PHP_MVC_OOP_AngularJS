@@ -66,8 +66,8 @@ function send_email($data, $mailgundata,$type) {
             $subject = 'Account activation';
             $message = 'Thank you for registering.';
             $message2 = 'Click on the following link to reset your password';
-            $link = 'pepega';
-            $address = $data;
+            $link = "http://localhost/angularjs/#/activation/".$data['username']."/".$data['token'];
+            $address = $data['email'];
             
             $html .= "Subject: ";
             $html .= "<b>". $subject ."</b>";

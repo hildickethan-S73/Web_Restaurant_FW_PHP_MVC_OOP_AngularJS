@@ -10,14 +10,20 @@ if ($method == 'POST'){
     if (isset($_GET['register']) && $_GET['register']){
         unset($_POST['data']['password2']);
         $_POST['data']['password']=password_hash($_POST['data']['password'],PASSWORD_BCRYPT);
-        $email = $_POST['data']['email'];
+        $emaildata = $_POST['data'];
+        // JWT
+        $payload = array(
+            "message" => $emaildata['username'],
+            "exp" => time()+20
+        );
+        $emaildata['token'] = JWT::encode($payload,$secret);
 
         $_POST['data'] = json_encode($_POST['data']);
         include_once CONTROLLER_PATH.'ApiController.class.php';
 
         include_once UTILS_PATH.'mail.inc.php';
         $mailgundata = parse_ini_file(INI_PATH.'mailgun.ini');
-        $results = send_email($email, $mailgundata, 'activation');
+        $results = send_email($emaildata, $mailgundata, 'activation');
 
         echo json_encode($results);
     }
@@ -91,9 +97,18 @@ if ($method == 'POST'){
             } 
         } 
     }
+} else if ($method == 'PUT'){
+    if (isset($_GET['enableaccount']) && $_GET['enableaccount']){
+        unset($_GET['enableaccount']);
+        $username = $_GET['username'];
+        $token = $_POST['data']['token'];
+        unset($_POST['data']['token']);
+
+        // WORKS BUt EXPIRED TOKEN
+        // DOWNLOAD THE EXCEPTION CLASSES
+
+        $checktoken = JWT::decode($token,$secret,array('HS256'));
+        debugPHP($checktoken);
+        echo json_encode($results);
+    }
 }
-
-
-
-// include_once CONTROLLER_PATH.'ApiController.class.php';
-// echo json_encode($results);

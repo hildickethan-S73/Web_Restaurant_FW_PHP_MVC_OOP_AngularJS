@@ -36,6 +36,22 @@ restaurantangular.config(['$routeProvider',
                     templateUrl: "frontend/modules/contact/view/contact.view.html", 
                     controller: "contactCtrl"
                 })
+
+                .when('/activation/:username/:token', {
+                    resolve: {
+                        confirm: function(services,$route,toastr){
+                            return services.put('login',{'token':$route.current.params.token,'activated':true},'enableaccount-true/username-'+$route.current.params.username).then(function(response){
+                                console.log(response);
+                                if (response == "true") {
+                                    toastr.success("Your account has been activated succesfully.","Enjoy!");
+                                } else {
+                                    toastr.error("Something went wrong.","Error");
+                                }
+                                location.href='#/'
+                            });
+                        }
+                    }
+        })
                 
                 .otherwise("/", {templateUrl: "frontend/modules/home/view/home.view.html", controller: "mainCtrl"});
     }

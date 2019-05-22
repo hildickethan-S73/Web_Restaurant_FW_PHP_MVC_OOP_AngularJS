@@ -47,12 +47,12 @@ restaurantangular.factory("services", ['$http','$q', function ($http, $q) {
    };
 
 
-   obj.post = function (module, data) {
+   obj.post = function (module, data, extension = "") {
       var defered=$q.defer();
       var promise=defered.promise;
       $http({
             method: 'POST',
-            url: serviceBase + module, // ie: api/restaurants 
+            url: serviceBase + module + '/' + extension, // ie: api/restaurants 
             data: {"data": data}
       }).success(function(data, status, headers, config) {
          defered.resolve(data);
@@ -78,15 +78,15 @@ restaurantangular.factory("services", ['$http','$q', function ($http, $q) {
       return promise;
    };
 
-   obj.put = function (module, functi, dada) {
+   obj.put = function (module, data, extension = "") {
       var defered=$q.defer();
       var promise=defered.promise;
       $http({
             method: 'PUT',
-            url: serviceBase + module + '&function=' + functi,
-            data: dada
+            url: serviceBase + module + '/' + extension, // ie: api/login
+            data: {"data": data}
       }).success(function(data, status, headers, config) {
-            defered.resolve(data);
+         defered.resolve(data);
       }).error(function(data, status, headers, config) {
          defered.reject(data);
       });
