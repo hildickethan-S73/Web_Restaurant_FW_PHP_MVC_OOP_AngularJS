@@ -479,3 +479,7 @@ display: block;
 #usernameprofile {
 	padding-bottom: 5px;
 }
+
+#lostpw-form {
+	display: none;
+}

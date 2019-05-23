@@ -11,6 +11,13 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userd
         //     register.style.display = "block";
     };
 
+    $scope.recoverPWForm = function(event) {
+        var pwform = event.target.parentNode.parentNode.parentNode.children[2];
+        var current = event.target.parentNode.parentNode;
+        current.style.display = "none";
+        pwform.style.display = "block";
+    };
+
     $scope.register = function() {
         $scope.registerF.avatar = `https://api.adorable.io/avatars/256/${$scope.registerF.username}`;
         services.get('login',`request-true/email-${$scope.registerF.email}`).then(function (response){
@@ -81,7 +88,7 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userd
     };
 });
 
-restaurantangular.controller('activationCtrl', function ($scope,services,toastr,$rootScope,activation,$route) {
+restaurantangular.controller('activationCtrl', function (services,toastr,activation,$route) {
     activation = JSON.parse(activation);
     if (activation === true) {
         toastr.success("Your account has been activated succesfully.","Enjoy!");
@@ -93,7 +100,7 @@ restaurantangular.controller('activationCtrl', function ($scope,services,toastr,
                     "username" : response[0].username, 
                     "email" : response[0].email
                 };
-                console.log(data);
+                // console.log(data);
                 services.postF('login',data,'sendemail').then(function(response){
                     console.log(response);
                     toastr.success("Resending validation email","Notification");

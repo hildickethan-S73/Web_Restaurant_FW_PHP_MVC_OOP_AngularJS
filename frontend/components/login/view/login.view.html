@@ -18,8 +18,14 @@
             <input required ng-model="loginF.username" type="text" name="usernamelogin" placeholder="username" id="usernamelogin" autocomplete="off"/>
             <input required ng-model="loginF.password" type="password" name="passwordlogin" placeholder="password" id="passwordlogin" autocomplete="off"/>
             <a ng-click="login()" type="button" class="login-button-l" id="loginformbutton">Login</a>
-            <p class="message">Forgotten password? <a href="#" id="lostpw">Click here</a></p>
+            <p class="message">Forgotten password? <a ng-click="recoverPWForm($event)" id="lostpw">Click here</a></p>
             <p class="message">Not registered? <a ng-click="changeForm($event)" id="reg">Create an account</a></p>
+        </form>
+   
+        <form class="login-form" role="form" id="lostpw-form">
+            <input type="email" name="emaillostpw" placeholder="email" id="emaillostpw" autocomplete="off"/>
+            <a type="button" class="login-button-l" id="lostpwbutton">Send</a>
+            <p class="message">Input the e-mail that corresponds to the account and we will send you a reset link</p>
         </form>
     </div>
 </div>
