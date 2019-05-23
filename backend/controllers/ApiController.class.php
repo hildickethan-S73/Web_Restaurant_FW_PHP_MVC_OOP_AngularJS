@@ -33,8 +33,9 @@ if ($method=='GET'||$method=='DELETE'){
         die();
     }
 } else if ($method=='PUT'){
-    parse_str(file_get_contents("php://input"),$post_vars);
-    $data = [$_GET, $post_vars];
+    // parse_str(file_get_contents("php://input"),$post_vars);
+    // debugPHP($_POST['data']);
+    $data = [$_GET, $_POST['data']];
     // error_log(print_r($data,1));
     $response = $object->$method($data);
     if ($response){

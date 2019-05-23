@@ -81,6 +81,30 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userd
     };
 });
 
+restaurantangular.controller('activationCtrl', function ($scope,services,toastr,$rootScope,activation,$route) {
+    activation = JSON.parse(activation);
+    if (activation === true) {
+        toastr.success("Your account has been activated succesfully.","Enjoy!");
+    } else {
+        if (activation == 'Expired token'){
+            toastr.error("Token expired","Error");
+            services.get('login','username-'+$route.current.params.username).then(function(response){
+                var data = {
+                    "username" : response[0].username, 
+                    "email" : response[0].email
+                };
+                console.log(data);
+                services.postF('login',data,'sendemail').then(function(response){
+                    console.log(response);
+                    toastr.success("Resending validation email","Notification");
+                });
+            });
+        } else {
+            toastr.error("Something went wrong.","Error");
+        }
+    }
+    location.href='#/';    
+});
 
 // JQUERY
 /*

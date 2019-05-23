@@ -4,19 +4,6 @@ restaurantangular.factory("services", ['$http','$q', function ($http, $q) {
    
    // all gets with same name doesn't work for me
    // only uses last one
-//    obj.get = function (module) {
-//       var defered=$q.defer();
-//       var promise=defered.promise;
-//       $http({
-//             method: 'GET',
-//             url: serviceBase + module // ie: api/restaurants
-//       }).success(function(data, status, headers, config) {
-//          defered.resolve(data);
-//       }).error(function(data, status, headers, config) {
-//          defered.reject(data);
-//       });
-//       return promise;
-//    };
    
    obj.get = function (module, extension = "") {
       var defered=$q.defer();

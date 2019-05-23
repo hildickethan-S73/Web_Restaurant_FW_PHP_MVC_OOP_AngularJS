@@ -2,9 +2,15 @@
 $method = $_SERVER['REQUEST_METHOD'];
 $object = Login::getInstance();
 include_once LOGIN_UTILS_PATH.'JWT.php';
+include_once LOGIN_UTILS_PATH.'BeforeValidException.php';
+include_once LOGIN_UTILS_PATH.'ExpiredException.php';
+include_once LOGIN_UTILS_PATH.'SignatureInvalidException.php';
 use Firebase\JWT\JWT;
+
 $secret = parse_ini_file(INI_PATH.'jwt.ini');
 $secret = $secret['secret'];
+
+// whole file really needs code clean up
 
 if ($method == 'POST'){
     if (isset($_GET['register']) && $_GET['register']){
@@ -34,7 +40,25 @@ if ($method == 'POST'){
         $mailgundata = parse_ini_file(INI_PATH.'mailgun.ini');
         $results = send_email($_POST['email'], $mailgundata, 'recover');
         echo json_encode($results);
-    }
+    } 
+    
+    if (isset($_GET['sendemail']) && $_GET['sendemail']){
+        unset($_GET['sendemail']);
+        $emaildata = $_POST['data'];
+
+        // JWT
+        $payload = array(
+            "message" => $emaildata['username'],
+            "exp" => time()+ (60 * 20) // 20 minutes
+        );
+        $emaildata['token'] = JWT::encode($payload,$secret);
+        debugPHP($emaildata['token']);
+        include_once UTILS_PATH.'mail.inc.php';
+        $mailgundata = parse_ini_file(INI_PATH.'mailgun.ini');
+        $results = send_email($emaildata, $mailgundata, 'activation');
+
+        echo json_encode($results);
+    } 
 } else if ($method == 'GET'){
     if (isset($_GET['login']) && $_GET['login']){
         unset($_GET['login']);
@@ -59,17 +83,13 @@ if ($method == 'POST'){
         } else {
             echo 'nouser';
         }
-    }
-
-    if (isset($_GET['check']) && $_GET['check']){
+    } else if (isset($_GET['check']) && $_GET['check']){
         if (isset($_SESSION['user'])){
             echo json_encode($_SESSION['user']);
         } else {
             echo 'notlogged';
         }
-    }
-
-    if (isset($_GET['activity']) && $_GET['activity']){
+    } else if (isset($_GET['activity']) && $_GET['activity']){
         if (isset($_SESSION['user'])){
             if (isset($_SESSION["time"])){  
                 // error_log(print_r($_SESSION["time"],1));
@@ -79,10 +99,12 @@ if ($method == 'POST'){
                 }
             }
         }
-    }
-    // cringe
-    if (isset($_GET['request']) && $_GET['request']){
+    } else if (isset($_GET['request']) && $_GET['request']){
         unset($_GET['request']);
+        include_once CONTROLLER_PATH.'ApiController.class.php';
+        echo json_encode($results);
+
+    } else {
         include_once CONTROLLER_PATH.'ApiController.class.php';
         echo json_encode($results);
     }
@@ -103,12 +125,17 @@ if ($method == 'POST'){
         $username = $_GET['username'];
         $token = $_POST['data']['token'];
         unset($_POST['data']['token']);
-
-        // WORKS BUt EXPIRED TOKEN
-        // DOWNLOAD THE EXCEPTION CLASSES
-
-        $checktoken = JWT::decode($token,$secret,array('HS256'));
-        debugPHP($checktoken);
+    
+        try {
+            $checktoken = JWT::decode($token,$secret,array('HS256'));
+        } catch(Exception $e) {
+            $results = $e->getMessage();      
+        }
+        // debugPHP($checktoken);
+        if(!isset($results)){
+            // debugPHP('no error');
+            include_once CONTROLLER_PATH.'ApiController.class.php';
+        }
         echo json_encode($results);
     }
 }

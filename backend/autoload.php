@@ -40,4 +40,5 @@ function loadClasses($className){
         // error_log(print_r($className.' m loaded',1));
         include_once COMPONENTS_PATH.strtolower($className).'/model/'.$className.'.class.php';
     }
+
 }
