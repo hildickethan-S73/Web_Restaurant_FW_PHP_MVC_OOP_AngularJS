@@ -20,7 +20,7 @@ if ($method == 'POST'){
         // JWT
         $payload = array(
             "message" => $emaildata['username'],
-            "exp" => time()+20
+            "exp" => time()+(60 * 20) // 20 minutes
         );
         $emaildata['token'] = JWT::encode($payload,$secret);
 
@@ -72,7 +72,7 @@ if ($method == 'POST'){
                 $_SESSION['user']=$results[0];
                 $payload = array(
                     "message" => $_SESSION['user']->username,
-                    "exp" => time()+20
+                    "exp" => time()+(60*20)
                 );
                 $_SESSION['user']->token = JWT::encode($payload,$secret);
                 $_SESSION['user']->password = "";
@@ -131,10 +131,11 @@ if ($method == 'POST'){
         } catch(Exception $e) {
             $results = $e->getMessage();      
         }
-        // debugPHP($checktoken);
         if(!isset($results)){
-            // debugPHP('no error');
-            include_once CONTROLLER_PATH.'ApiController.class.php';
+            if ($checktoken->message == $_GET['username'])
+                include_once CONTROLLER_PATH.'ApiController.class.php';
+            else 
+                $results = 'Username mismatch with token';
         }
         echo json_encode($results);
     }

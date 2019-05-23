@@ -106,6 +106,8 @@ restaurantangular.controller('activationCtrl', function (services,toastr,activat
                     toastr.success("Resending validation email","Notification");
                 });
             });
+        } else if (activation == 'Username mismatch with token') {
+            toastr.error(activation,"Error");
         } else {
             toastr.error("Something went wrong.","Error");
         }
