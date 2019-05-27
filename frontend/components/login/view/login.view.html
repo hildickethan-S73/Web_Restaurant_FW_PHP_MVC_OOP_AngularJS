@@ -23,8 +23,8 @@
         </form>
    
         <form class="login-form" role="form" id="lostpw-form">
-            <input type="email" name="emaillostpw" placeholder="email" id="emaillostpw" autocomplete="off"/>
-            <a type="button" class="login-button-l" id="lostpwbutton">Send</a>
+            <input required ng-model="pwF.email" type="email" name="emaillostpw" placeholder="email" id="emaillostpw" autocomplete="off"/>
+            <a type="button" class="login-button-l" id="lostpwbutton" ng-click="send()">Send</a>
             <p class="message">Input the e-mail that corresponds to the account and we will send you a reset link</p>
         </form>
     </div>

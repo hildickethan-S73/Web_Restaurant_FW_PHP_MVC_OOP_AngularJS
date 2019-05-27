@@ -11,6 +11,7 @@ $secret = parse_ini_file(INI_PATH.'jwt.ini');
 $secret = $secret['secret'];
 
 // whole file really needs code clean up
+// theres literally the same code 3 times
 
 if ($method == 'POST'){
     if (isset($_GET['register']) && $_GET['register']){
@@ -52,10 +53,28 @@ if ($method == 'POST'){
             "exp" => time()+ (60 * 20) // 20 minutes
         );
         $emaildata['token'] = JWT::encode($payload,$secret);
-        debugPHP($emaildata['token']);
+        // debugPHP($emaildata['token']);
         include_once UTILS_PATH.'mail.inc.php';
         $mailgundata = parse_ini_file(INI_PATH.'mailgun.ini');
         $results = send_email($emaildata, $mailgundata, 'activation');
+
+        echo json_encode($results);
+    } 
+
+    if (isset($_GET['recoverPW']) && $_GET['recoverPW']){
+        unset($_GET['recoverPW']);
+        $emaildata = $_POST['data'];
+
+        // JWT
+        $payload = array(
+            "message" => $emaildata['email'],
+            "exp" => time()+ (60 * 20) // 20 minutes
+        );
+        $emaildata['token'] = JWT::encode($payload,$secret);
+        // debugPHP($emaildata['token']);
+        include_once UTILS_PATH.'mail.inc.php';
+        $mailgundata = parse_ini_file(INI_PATH.'mailgun.ini');
+        $results = send_email($emaildata, $mailgundata, 'recover');
 
         echo json_encode($results);
     } 

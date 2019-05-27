@@ -37,8 +37,8 @@ function send_email($data, $mailgundata,$type) {
             $subject = 'Password Recovery';
             $message = 'We are sending you this message because you requested a password recovery, if this is not you then please contact the site administrator.';
             $message2 = 'Click on the following link to reset your password';
-            $link = 'pepega';
-            $address = $data;
+            $link = "http://localhost/angularjs/#/recover/".$data['email']."/".$data['token'];
+            $address = $data['email'];
             
             $html .= "Subject: ";
             $html .= "<b>". $subject ."</b>";
@@ -52,11 +52,13 @@ function send_email($data, $mailgundata,$type) {
             $html .= "<br>";
             $html .= $link;
             $html .= "<br><br>";
+            $html .= "This email would have been sent to: ".$address;
+            $html .= "<br><br>";
 
             $html .= "</body>";
             $html .= "</html>";
             try{
-                $result = send_mailgun($mailgundata['email'], $address, $subject, $html, $mailgundata);    
+                $result = send_mailgun($mailgundata['email'], $mailgundata['email'], $subject, $html, $mailgundata);    
             } catch (Exception $e) {
                 $return = 0;
             }
@@ -65,7 +67,7 @@ function send_email($data, $mailgundata,$type) {
         case 'activation':
             $subject = 'Account activation';
             $message = 'Thank you for registering.';
-            $message2 = 'Click on the following link to reset your password';
+            $message2 = 'Click on the following link to activate your account';
             $link = "http://localhost/angularjs/#/activation/".$data['username']."/".$data['token'];
             $address = $data['email'];
             
@@ -92,7 +94,6 @@ function send_email($data, $mailgundata,$type) {
                 $return = 0;
             }
             break;
-        
         default:
             # code...
             break;

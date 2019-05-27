@@ -483,3 +483,14 @@ display: block;
 #lostpw-form {
 	display: none;
 }
+
+.contact-form input[type=password]{
+	width: 100%;
+	border: none;
+	font-size: 14px;
+	height: 61px;
+	padding: 10px 32px;
+	margin-bottom: 8px;
+	border-bottom: 3px solid transparent;
+	background: #dee2ef;
+}

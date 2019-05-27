@@ -49,7 +49,12 @@ restaurantangular.config(['$routeProvider',
                                 );
                         }
                     }
-        })
+                })
+
+                .when('/recover/:email/:token', {
+                    templateUrl: "frontend/components/login/view/recoverPW.view.html", 
+                    controller: "recoverPWCtrl"
+                })
                 
                 .otherwise("/", {templateUrl: "frontend/modules/home/view/home.view.html", controller: "mainCtrl"});
     }
