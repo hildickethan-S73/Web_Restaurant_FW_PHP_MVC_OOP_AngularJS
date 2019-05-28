@@ -55,6 +55,11 @@ restaurantangular.config(['$routeProvider',
                     templateUrl: "frontend/components/login/view/recoverPW.view.html", 
                     controller: "recoverPWCtrl"
                 })
+
+                .when('/profile', {
+                    templateUrl: "frontend/components/profile/view/profile.view.html", 
+                    controller: "profileCtrl"
+                })
                 
                 .otherwise("/", {templateUrl: "frontend/modules/home/view/home.view.html", controller: "mainCtrl"});
     }

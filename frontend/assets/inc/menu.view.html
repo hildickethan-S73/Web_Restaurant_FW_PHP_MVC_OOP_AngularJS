@@ -26,7 +26,7 @@
             </div>
             
             <div class="logged-in" id="logged-in" ng-show="loggedin">
-                <h3 id="logged-in-name">{{user.username}}</h3>
+                <h3 id="logged-in-name"><a href="#/profile">{{user.username}}</a></h3>
                 <img id="logged-in-avatar" src="{{user.avatar}}" ng-click="logout()"/>
             </div>
         </div>

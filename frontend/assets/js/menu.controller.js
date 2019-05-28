@@ -25,5 +25,5 @@ restaurantangular.controller('menuCtrl', function($scope,CommonService,userdata,
                 });
             }
         });
-    }
+    };
 });
