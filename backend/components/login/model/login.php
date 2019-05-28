@@ -67,11 +67,12 @@ if ($method == 'POST'){
 
         // JWT
         $payload = array(
-            "message" => $emaildata['email'],
+            "message" => $emaildata['username'],
             "exp" => time()+ (60 * 20) // 20 minutes
         );
         $emaildata['token'] = JWT::encode($payload,$secret);
         // debugPHP($emaildata['token']);
+
         include_once UTILS_PATH.'mail.inc.php';
         $mailgundata = parse_ini_file(INI_PATH.'mailgun.ini');
         $results = send_email($emaildata, $mailgundata, 'recover');
@@ -141,7 +142,6 @@ if ($method == 'POST'){
 } else if ($method == 'PUT'){
     if (isset($_GET['enableaccount']) && $_GET['enableaccount']){
         unset($_GET['enableaccount']);
-        $username = $_GET['username'];
         $token = $_POST['data']['token'];
         unset($_POST['data']['token']);
     
@@ -157,5 +157,26 @@ if ($method == 'POST'){
                 $results = 'Username mismatch with token';
         }
         echo json_encode($results);
-    }
+    } else {
+        // debugPHP($_GET);
+        // debugPHP($_POST['data']);
+        $token = $_POST['data']['token'];
+        unset($_POST['data']['token']);
+
+        try {
+            $checktoken = JWT::decode($token,$secret,array('HS256'));
+        } catch(Exception $e) {
+            $results = $e->getMessage();      
+        }
+        if(!isset($results)){
+            if ($checktoken->message == $_GET['username']){
+                if (isset($_POST['data']['password'])){
+                    $_POST['data']['password']=password_hash($_POST['data']['password'],PASSWORD_BCRYPT);
+                }
+                include_once CONTROLLER_PATH.'ApiController.class.php';
+            } else 
+                $results = 'Unauthorized token';
+        }
+        echo json_encode($results);
+    }   
 }

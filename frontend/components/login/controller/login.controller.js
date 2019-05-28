@@ -90,9 +90,11 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userd
         // thisneedspropervalidation@aaaa.com
         services.get('login',`email-${$scope.pwF.email}`).then(function(response){
             if (response.length > 0){
+                $scope.pwF.username = response[0].username;
                 services.postF('login',$scope.pwF,'recoverPW').then(function(response){
                     console.log(response);
                     toastr.success("You can recover your password with the link in the email we sent you.","Recovery");
+                    $uibModalInstance.dismiss('cancel');
                 });
             } else {
                 toastr.error("Email doesn't exist in our database","Error");
@@ -128,6 +130,32 @@ restaurantangular.controller('activationCtrl', function (services,toastr,activat
     location.href='#/';    
 });
 
-restaurantangular.controller('recoverPWCtrl', function (services,toastr,$route) {
-    
+restaurantangular.controller('recoverPWCtrl', function ($scope,services,toastr,$route) {
+    $scope.submitPW = function() {
+        if ($scope.PW.newPW == $scope.PW.newPW2) {
+            var data = {
+                "password":$scope.PW.newPW,
+                "token":$route.current.params.token
+            };
+            services.get('login',`email-${$route.current.params.email}`).then(function(response){
+                if (response.length > 0){
+                    services.put('login',data,`username-${response[0].username}`).then(function(response){
+                        response = JSON.parse(response);
+                        console.log(response);
+                        if (response === true){
+                            toastr.success("Password changed","Notification");
+                            location.href='#/';
+                        } else {
+                            toastr.error(response,"Error");
+                        }
+                    });
+                } else {
+                    toastr.error("Email doesn't exist in our DB","Error");
+                }
+            });
+        } else {
+            console.log('passwords dont match');
+            toastr.error("passwords dont match","Error");
+        }
+    };
 });
