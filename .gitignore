@@ -1,3 +1,4 @@
 backend/model/constants.php
 backend/model/token.json
 *.ini
+.vscode
