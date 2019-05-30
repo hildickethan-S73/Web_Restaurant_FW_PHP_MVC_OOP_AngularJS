@@ -22,7 +22,9 @@ class FrontController {
             'contact',
             'shop',
             'details',
-            'login'
+            'login',
+            'profile',
+            'cart'
         );
         return $allowedPages;
     }
