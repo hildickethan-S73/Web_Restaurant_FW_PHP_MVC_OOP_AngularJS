@@ -3,7 +3,7 @@ function upload_files() {
     $error = "";
     $copiarFichero = false;
     $extensiones = array('jpg', 'jpeg', 'gif', 'png', 'bmp');
-    debugPHP($_FILES);
+    // debugPHP($_FILES);
     if(!isset($_FILES)) {
         $error .=  'No existe $_FILES <br>';
     }

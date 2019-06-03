@@ -4,19 +4,19 @@
         <form class="register-form" role="form" id="register-form" name="register-form">
             <!-- need to fix validation -->
             <input required 
-                ng-model="registerF.username" 
+                ng-model="registerF.username" ng-keyup="$event.keyCode == 13 && register()" 
                 type="text" name="username" placeholder="username" id="username" autocomplete="off"/>
                 <!-- <span class="text-danger" ng-show="register-form.username.$error.required && (register-form.username.$dirty || register-form.username.$touched)">si</span> -->
-            <input required ng-model="registerF.password" type="password" name="password" placeholder="password" id="password" autocomplete="off"/>
-            <input required ng-model="registerF.password2" type="password" name="password2" placeholder="retype password" id="password2" autocomplete="off"/>
-            <input required ng-model="registerF.email" type="email" name="email" placeholder="email address" id="email"/>
+            <input required ng-model="registerF.password" ng-keyup="$event.keyCode == 13 && register()" type="password" name="password" placeholder="password" id="password" autocomplete="off"/>
+            <input required ng-model="registerF.password2" ng-keyup="$event.keyCode == 13 && register()" type="password" name="password2" placeholder="retype password" id="password2" autocomplete="off"/>
+            <input required ng-model="registerF.email" ng-keyup="$event.keyCode == 13 && register()" type="email" name="email" placeholder="email address" id="email"/>
             <a ng-click="register()" type="button" class="login-button-r" id="registerbutton">Register</a>
             <p class="message">Already registered? <a ng-click="changeForm($event)" id="signin">Sign In</a></p>
         </form>
 
         <form class="login-form" role="form" id="login-form">
-            <input required ng-model="loginF.username" type="text" name="usernamelogin" placeholder="username" id="usernamelogin" autocomplete="off"/>
-            <input required ng-model="loginF.password" type="password" name="passwordlogin" placeholder="password" id="passwordlogin" autocomplete="off"/>
+            <input required ng-model="loginF.username" ng-keyup="$event.keyCode == 13 && login()" type="text" name="usernamelogin" placeholder="username" id="usernamelogin" autocomplete="off"/>
+            <input required ng-model="loginF.password" ng-keyup="$event.keyCode == 13 && login()" type="password" name="passwordlogin" placeholder="password" id="passwordlogin" autocomplete="off"/>
             <a ng-click="login()" type="button" class="login-button-l" id="loginformbutton">Login</a>
             <p class="message">Forgotten password? <a ng-click="recoverPWForm($event)" id="lostpw">Click here</a></p>
             <p class="message">Not registered? <a ng-click="changeForm($event)" id="reg">Create an account</a></p>

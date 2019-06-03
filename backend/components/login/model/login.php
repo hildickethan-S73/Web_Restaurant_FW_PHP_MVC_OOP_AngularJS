@@ -173,6 +173,11 @@ if ($method == 'POST'){
                 if (isset($_POST['data']['password'])){
                     $_POST['data']['password']=password_hash($_POST['data']['password'],PASSWORD_BCRYPT);
                 }
+                if (isset($_POST['data']['avatar'])){
+                    $_SESSION['user']->avatar = $_POST['data']['avatar'];
+                    // debugPHP($_SESSION['user']);
+                    // debugPHP($_POST['data']);
+                }
                 include_once CONTROLLER_PATH.'ApiController.class.php';
             } else 
                 $results = 'Unauthorized token';

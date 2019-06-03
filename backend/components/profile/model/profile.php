@@ -2,13 +2,12 @@
 include(UTILS_PATH . "upload.inc.php");
 
 if ((isset($_GET["upload"])) && ($_GET["upload"])){
-    $result_prodpic = upload_files();
-    $_SESSION['result_prodpic'] = $result_prodpic;
-    echo json_encode($result_prodpic);
+  $result_prodpic = upload_files();
+  $_SESSION['result_prodpic'] = $result_prodpic;
+  echo json_encode($result_prodpic);
 }
 
 if ((isset($_GET["delete"])) && ($_GET["delete"])){
-  // echo json_encode("Hello world from delete in controller_profile.class.php");
   $_SESSION['result_prodpic'] = array();
   $result = remove_files();
   if($result === true){

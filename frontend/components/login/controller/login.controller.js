@@ -47,6 +47,7 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userd
     };
     $scope.login = function() {
         if ($scope.loginF.password != undefined && $scope.loginF.username != undefined){
+            // change this get to a post so the password isnt in the url
             services.get('login',`login-true/username-${$scope.loginF.username}/password-${$scope.loginF.password}`).then(function (response){
                 switch (response) {
                     case 'badpw':
