@@ -12,6 +12,7 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
     $scope.dropzoneConfig = {
         'options': { // passed into the Dropzone constructor
           'url': 'backend/api/profile/upload-true',
+          addRemoveLinks: true,
           acceptedFiles: 'image/*,.jpeg,.jpg,.png'
         },
         'eventHandlers': {
