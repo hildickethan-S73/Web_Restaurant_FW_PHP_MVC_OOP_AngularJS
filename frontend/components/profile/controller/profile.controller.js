@@ -53,17 +53,30 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
             } else if (key != 'password2'){
                 data[key] = value;
             } 
-        });        
-        
-        updateProfile(extension,data,$scope.filename);
+        });
+        if ($scope.filename){
+            data.avatar = $scope.filename;
+        }
+
+        updateProfile(extension,data);
     };
     
-    function updateProfile(extension,data,filename) {
+    function updateProfile(extension,data) {
         services.put('login',data,extension).then(function(response){
             console.log(response);
             if (response){
-                $rootScope.user.avatar = filename;
-                userdata.user.avatar = filename;
+                angular.forEach(data, function(value, key) {
+                    if (key == 'token'){
+                        a=1;
+                    } else if (key == 'avatar') {
+                        $rootScope.user[key] = $scope.filename;
+                        userdata.user[key] = $scope.filename;
+                    } else {
+                        userdata.user[key] = value;
+                        $rootScope.user[key] = value;
+                    }
+                });
+
             } else {
                 console.log(response);
             }
