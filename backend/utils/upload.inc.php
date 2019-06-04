@@ -81,7 +81,7 @@ function upload_files() {
             // I use absolute route to move_uploaded_file because this happens when i run ajax
             $upfile = MEDIA_PATH.$nombreFichero;
         }else{
-                $error .=   "Invalid File...";
+                $error .= "Invalid File...";
         }
     }
 
@@ -105,10 +105,7 @@ function upload_files() {
     }
 }//End upload_files
 
-function remove_files(){
-	$name = $_POST['filename'];
-  //echo json_encode($name);
-  //exit;
+function remove_files(){    
 	if(file_exists(MEDIA_PATH.$_SESSION['nombreFichero'])){
 		unlink(MEDIA_PATH.$_SESSION['nombreFichero']);
 		return true;

@@ -6,9 +6,15 @@ restaurantangular.controller('menuCtrl', function($scope,CommonService,userdata,
     services.getF('login','check').then(function(response){
         if (response != "notlogged"){
             $rootScope.loggedin=true;
-            userdata = response;
-            $rootScope.user = userdata;
-            // console.log($rootScope.user);
+            if (response.admin == 1){
+                $rootScope.admin = true;
+            } else {
+                $rootScope.admin = false;
+            }
+            userdata.user = response;
+            $rootScope.user = userdata.user;
+            localStorage.setItem('token',userdata.user.token);
+            // console.log(userdata);
         } else {
             $rootScope.loggedin=false;
         }

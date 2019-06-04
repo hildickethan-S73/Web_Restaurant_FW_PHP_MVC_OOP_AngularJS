@@ -30,6 +30,8 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userd
                                 toastr.success('Registered, check your email to activate your account', 'Success',{
                                     closeButton: true
                                 });
+                                // close modal
+                                $uibModalInstance.dismiss('cancel');
                             }
                         });
                     } else {
@@ -68,6 +70,11 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userd
 
                             // contact with menu controller
                             $rootScope.loggedin = true;
+                            if (response.admin == 1){
+                                $rootScope.admin = true;
+                            } else {
+                                $rootScope.admin = false;
+                            }
                             $rootScope.user = userdata.user;
                             localStorage.setItem('token',userdata.user.token);
 
@@ -156,7 +163,7 @@ restaurantangular.controller('recoverPWCtrl', function ($scope,services,toastr,$
             });
         } else {
             console.log('passwords dont match');
-            toastr.error("passwords dont match","Error");
+            toastr.error("Passwords don\'t match","Error");
         }
     };
 });

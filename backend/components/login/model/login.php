@@ -21,7 +21,7 @@ if ($method == 'POST'){
         // JWT
         $payload = array(
             "message" => $emaildata['username'],
-            "exp" => time()+(60 * 20) // 20 minutes
+            "exp" => time()+(60 * 30) // 30 minutes
         );
         $emaildata['token'] = JWT::encode($payload,$secret);
 
@@ -50,7 +50,7 @@ if ($method == 'POST'){
         // JWT
         $payload = array(
             "message" => $emaildata['username'],
-            "exp" => time()+ (60 * 20) // 20 minutes
+            "exp" => time()+ (60 * 30) // 30 minutes
         );
         $emaildata['token'] = JWT::encode($payload,$secret);
         // debugPHP($emaildata['token']);
@@ -68,7 +68,7 @@ if ($method == 'POST'){
         // JWT
         $payload = array(
             "message" => $emaildata['username'],
-            "exp" => time()+ (60 * 20) // 20 minutes
+            "exp" => time()+ (60 * 30) // 30 minutes
         );
         $emaildata['token'] = JWT::encode($payload,$secret);
         // debugPHP($emaildata['token']);
@@ -92,7 +92,7 @@ if ($method == 'POST'){
                 $_SESSION['user']=$results[0];
                 $payload = array(
                     "message" => $_SESSION['user']->username,
-                    "exp" => time()+(60*20)
+                    "exp" => time()+(60*30)
                 );
                 $_SESSION['user']->token = JWT::encode($payload,$secret);
                 $_SESSION['user']->password = "";
@@ -158,8 +158,6 @@ if ($method == 'POST'){
         }
         echo json_encode($results);
     } else {
-        // debugPHP($_GET);
-        // debugPHP($_POST['data']);
         $token = $_POST['data']['token'];
         unset($_POST['data']['token']);
 
@@ -175,8 +173,6 @@ if ($method == 'POST'){
                 }
                 if (isset($_POST['data']['avatar'])){
                     $_SESSION['user']->avatar = $_POST['data']['avatar'];
-                    // debugPHP($_SESSION['user']);
-                    // debugPHP($_POST['data']);
                 }
                 include_once CONTROLLER_PATH.'ApiController.class.php';
             } else 

@@ -7,13 +7,8 @@ if ((isset($_GET["upload"])) && ($_GET["upload"])){
   echo json_encode($result_prodpic);
 }
 
-if ((isset($_GET["delete"])) && ($_GET["delete"])){
+if ((isset($_GET["avatar"])) && ($_GET["avatar"])){
   $_SESSION['result_prodpic'] = array();
   $result = remove_files();
-  if($result === true){
-    echo json_encode(array("res" => true));
-  }else{
-    echo json_encode(array("res" => false));
-  }
-  //echo json_decode($result);
+  echo json_encode($result);
 }
