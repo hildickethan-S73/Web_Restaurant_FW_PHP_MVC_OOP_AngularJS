@@ -171,10 +171,21 @@ if ($method == 'POST'){
                 if (isset($_POST['data']['password'])){
                     $_POST['data']['password']=password_hash($_POST['data']['password'],PASSWORD_BCRYPT);
                 }
-                foreach ($_POSt['data'] as $key => $value) {
+                foreach ($_POST['data'] as $key => $value) {
                     $_SESSION['user']->$key = $value;
+                    debugPHP($_SESSION['user']);
                 }
                 include_once CONTROLLER_PATH.'ApiController.class.php';
+                if ($results === true) {
+                    // JWT update token
+                    $payload = array(
+                        "message" => $_SESSION['user']->username,
+                        "exp" => time()+(60*30)
+                    );
+                    $_SESSION['user']->token = JWT::encode($payload,$secret);
+                    $_SESSION['user']->password = "";
+                    $results = array('token' => $_SESSION['user']->token);
+                }
             } else 
                 $results = 'Unauthorized token';
         }

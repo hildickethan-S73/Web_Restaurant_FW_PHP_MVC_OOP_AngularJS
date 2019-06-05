@@ -63,20 +63,22 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
     
     function updateProfile(extension,data) {
         services.put('login',data,extension).then(function(response){
+            // response = JSON.parse(response);
             console.log(response);
-            if (response){
+            if (response['token']){
+                localStorage.setItem('token',response['token']);
                 angular.forEach(data, function(value, key) {
-                    if (key == 'token'){
-                        a=1;
-                    } else if (key == 'avatar') {
+                    if (key == 'avatar') {
                         $rootScope.user[key] = $scope.filename;
                         userdata.user[key] = $scope.filename;
+                    } else if (key == 'token') {
+                        $rootScope.user[key] = response['token'];
+                        userdata.user[key] = response['token'];
                     } else {
-                        userdata.user[key] = value;
                         $rootScope.user[key] = value;
+                        userdata.user[key] = value;
                     }
                 });
-
             } else {
                 console.log(response);
             }

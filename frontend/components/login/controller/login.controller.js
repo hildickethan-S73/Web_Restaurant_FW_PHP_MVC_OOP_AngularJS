@@ -148,9 +148,9 @@ restaurantangular.controller('recoverPWCtrl', function ($scope,services,toastr,$
             services.get('login',`email-${$route.current.params.email}`).then(function(response){
                 if (response.length > 0){
                     services.put('login',data,`username-${response[0].username}`).then(function(response){
-                        response = JSON.parse(response);
+                        // response = JSON.parse(response);
                         console.log(response);
-                        if (response === true){
+                        if (response['token']){
                             toastr.success("Password changed","Notification");
                             location.href='#/';
                         } else {
