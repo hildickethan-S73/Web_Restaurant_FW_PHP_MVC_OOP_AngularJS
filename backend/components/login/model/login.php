@@ -173,7 +173,7 @@ if ($method == 'POST'){
                 }
                 foreach ($_POST['data'] as $key => $value) {
                     $_SESSION['user']->$key = $value;
-                    debugPHP($_SESSION['user']);
+                    // debugPHP($_SESSION['user']);
                 }
                 include_once CONTROLLER_PATH.'ApiController.class.php';
                 if ($results === true) {

@@ -80,7 +80,17 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
                     }
                 });
             } else {
-                console.log(response);
+                if (response == '"Expired token"'){
+                    toastr.error('Expired token, please log back in', 'Error');
+                    services.deleteF('login','logout').then(function(response){
+                        if(response == "success"){
+                            $rootScope.loggedin=false;
+                            userdata = "";
+                            localStorage.removeItem('token');
+                            location.href = "#/";
+                        }
+                    });
+                }
             }
         });
     }

@@ -34,6 +34,7 @@
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Purchases</strong></span> 125</li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Favourites</strong></span> 13</li>
             </ul>
+            <br>
             
         </div>
         <!--/col-3-->
@@ -50,16 +51,16 @@
                         <div class="col-xs-6">
                             <br>
                             <h4>Username</h4>
-                            <input ng-model="profileF.username" type="text" class="form-control" name="username" placeholder="username" title="enter your username">
+                            <input ng-model="profileF.username" type="text" class="form-control" name="username" placeholder="{{user.username}}" title="enter your username">
                             <br>
                             <h4>E-mail</h4>
-                            <input ng-model="profileF.email" type="email" class="form-control" name="email" placeholder="email" title="enter your email">
+                            <input ng-model="profileF.email" type="email" class="form-control" name="email" placeholder="{{user.email}}" title="enter your email">
                             <br>
                             <h4>Password</h4>
                             <input ng-model="profileF.password" type="password" class="form-control" name="password" placeholder="password" title="enter your password">
                             <br>
                             <h4 ng-show="profileF.password">Confirm password</h4>
-                            <input ng-show="profileF.password" ng-model="profileF.password2" type="password" class="form-control" name="username" placeholder="username" title="enter your username">
+                            <input ng-show="profileF.password" ng-model="profileF.password2" type="password" class="form-control" name="password2" placeholder="repeat password" title="repeat your password">
                         </div>
                     </div>
                 </form>
