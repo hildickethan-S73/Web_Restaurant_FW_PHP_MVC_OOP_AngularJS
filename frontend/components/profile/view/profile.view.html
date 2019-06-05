@@ -61,6 +61,11 @@
                             <br>
                             <h4 ng-show="profileF.password">Confirm password</h4>
                             <input ng-show="profileF.password" ng-model="profileF.password2" type="password" class="form-control" name="password2" placeholder="repeat password" title="repeat your password">
+                            
+                            <div class="dropdown-div">
+                                <dropdown class="col-sm-4" model="country" dependent-field="state"></dropdown>
+                                <dropdown class="col-sm-4" model="state"></dropdown>
+                            </div>
                         </div>
                     </div>
                 </form>

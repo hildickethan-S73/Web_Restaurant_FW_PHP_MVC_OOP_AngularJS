@@ -1,0 +1,7 @@
+<label for="model.id">{{model.label}}</label>
+<select ng-model="model.value" 
+        ng-options="value for value in model.values"
+        ng-change="loadDependentPicklist()"
+        ng-disabled="model.values.length<1">
+  <option value=''>--Select--</option>
+</select>

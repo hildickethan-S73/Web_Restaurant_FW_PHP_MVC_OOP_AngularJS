@@ -1,0 +1,8 @@
+<h5>{{model.label}}</h5>
+<select class="custom-select remove-width"
+        ng-model="model.value" 
+        ng-options="value for value in model.values"
+        ng-change="loadDependentPicklist()"
+        ng-disabled="model.values.length<1">
+  <option value=''>--Select--</option>
+</select>
