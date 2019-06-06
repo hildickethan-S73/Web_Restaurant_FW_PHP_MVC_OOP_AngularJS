@@ -4,5 +4,5 @@
         ng-options="value.name for value in model.values"
         ng-change="loadDependentPicklist()"
         ng-disabled="model.values.length<1">
-  <option value=''>--Select--</option>
+  <option value="">{{model.value.name}}</option>
 </select>

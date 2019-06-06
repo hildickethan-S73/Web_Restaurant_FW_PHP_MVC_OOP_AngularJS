@@ -62,11 +62,17 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
     };
 
     services.getResource('countries.json').then(function(response){
+        var country;
+        angular.forEach(response, function(obj, key) {
+            if (obj.name == userdata.user.country){
+                country = obj;
+            }
+        });
         angular.extend($scope,{
             country : {
                 label : 'Country',
                 values : response,
-                value : null
+                value : country
             },
             state : {
                 label : 'State',

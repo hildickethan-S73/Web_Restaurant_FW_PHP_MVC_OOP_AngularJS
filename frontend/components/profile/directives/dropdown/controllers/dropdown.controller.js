@@ -1,4 +1,4 @@
-restaurantangular.controller('DropdownCtrl',['$scope','services',function($scope,services){    
+restaurantangular.controller('DropdownCtrl',['$scope','services',function($scope,services){
     $scope.loadDependentPicklist = function(){
         if($scope.dependentField){
             if ($scope.model.value.filename){
@@ -10,4 +10,8 @@ restaurantangular.controller('DropdownCtrl',['$scope','services',function($scope
             }
         }
     };
+    // to fix asynchrony between the promise in the profile controller and this
+    $scope.$watch('model.value', function(){
+        $scope.loadDependentPicklist();
+    });
 }]);
