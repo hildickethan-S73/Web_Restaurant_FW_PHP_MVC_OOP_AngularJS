@@ -29,6 +29,7 @@ restaurantangular.controller('menuCtrl', function($scope,CommonService,userdata,
                 toastr.success('Logged out', 'Success',{
                     closeButton: true
                 });
+                location.href="#/";
             }
         });
     };

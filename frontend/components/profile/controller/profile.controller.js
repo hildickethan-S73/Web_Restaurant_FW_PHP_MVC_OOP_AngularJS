@@ -41,12 +41,30 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
         }
     };
 
+    $scope.log = function(){
+        console.log(userdata.user);
+        console.log($scope.state);
+        
+    }
     
     $scope.update = function() {
         var extension = `username-${userdata.user.username}`;
         var data = {
             token: userdata.user.token
         };
+        if(!$scope.profileF){
+            $scope.profileF = {};
+        }
+        if ($scope.country.value != null && $scope.country.value.name != userdata.user.country){
+            $scope.profileF.country = $scope.country.value.name;
+        } else {
+            delete $scope.profileF.country;
+        }
+        if ($scope.state.value != null && $scope.state.value.name != userdata.user.state){
+            $scope.profileF.state = $scope.state.value.name;
+        } else {
+            delete $scope.profileF.state;
+        }
         angular.forEach($scope.profileF, function(value, key) {
             if (value == ""){
                 delete data[key];
@@ -57,17 +75,36 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
         if ($scope.filename){
             data.avatar = $scope.filename;
         }
-
+        console.log(data);
+        
         updateProfile(extension,data);
     };
 
+    var country = null;
+    var state = null;
     services.getResource('countries.json').then(function(response){
-        var country;
         angular.forEach(response, function(obj, key) {
             if (obj.name == userdata.user.country){
                 country = obj;
+                if (userdata.user.state != ""){
+                    services.getResource(`countries/${country.filename}.json`).then(function(response2){
+                        angular.forEach(response2, function(obj, key) {
+                            if (obj.name == userdata.user.state){
+                                state = obj;
+                            }
+                        });
+                        extend(response,country,state);
+                    });
+                } else {
+                    extend(response,country,state);
+                }
+            } else {
+                extend(response,country,state);
             }
         });
+    });
+
+    function extend(response,country,state){
         angular.extend($scope,{
             country : {
                 label : 'Country',
@@ -77,16 +114,13 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
             state : {
                 label : 'State',
                 values : [],
-                value : null
+                value : state
             }
         });
-    });
-
+    }
     
     function updateProfile(extension,data) {
         services.put('login',data,extension).then(function(response){
-            // response = JSON.parse(response);
-            console.log(response);
             if (response['token']){
                 localStorage.setItem('token',response['token']);
                 angular.forEach(data, function(value, key) {
@@ -101,6 +135,7 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
                         userdata.user[key] = value;
                     }
                 });
+                toastr.success('Profile updated successfully','Success');
             } else {
                 if (response == '"Expired token"'){
                     toastr.error('Expired token, please log back in', 'Error');
