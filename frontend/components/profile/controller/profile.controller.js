@@ -61,26 +61,21 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
         updateProfile(extension,data);
     };
 
-    angular.extend($scope,{
-        country : {
-            id : '001',
-            label : 'Country',
-            values : ['India','USA'],
-            value : null
-        },
-        state : {
-            id : '002',
-            label : 'State',
-            values : [],
-            value : null
-        },
-        area : {
-            id : '003',
-            label : 'Area',
-            values : [],
-            value : null
-        }
+    services.getResource('countries.json').then(function(response){
+        angular.extend($scope,{
+            country : {
+                label : 'Country',
+                values : response,
+                value : null
+            },
+            state : {
+                label : 'State',
+                values : [],
+                value : null
+            }
+        });
     });
+
     
     function updateProfile(extension,data) {
         services.put('login',data,extension).then(function(response){

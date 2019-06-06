@@ -33,6 +33,23 @@ restaurantangular.factory("services", ['$http','$q', function ($http, $q) {
       return promise;
    };
 
+   obj.getResource = function (filename) {
+      var defered=$q.defer();
+      var promise=defered.promise;
+      $http({
+            method: 'GET',
+            url: 'frontend/assets/resources/' + filename, // headers doesnt fix firefox issues with receiving file as text/xml
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data:''
+         }).success(function(data, status, headers, config) {
+            defered.resolve(data);
+         }).error(function(data, status, headers, config) {
+            defered.reject(data);
+         });
+      return promise;
+   };
 
    obj.post = function (module, data, extension = "") {
       var defered=$q.defer();
