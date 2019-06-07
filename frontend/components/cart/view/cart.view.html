@@ -1,0 +1,39 @@
+<!-- Page Top section -->
+<section class="page-top-section set-bg" back-img="frontend/assets/img/bgrestaurant.jpg">
+    <div class="container">
+        <h2>Shopping cart</h2>
+    </div>
+</section>
+<!-- Page Top section end -->
+
+<!-- Feature section -->
+<section class="feature-section spad">
+    <div class="container">
+        <table id="table_cart" class="table_cart col-sm-12">
+            <thead>
+                <tr>
+                    <th width=200>Image</th>
+                    <th width=300>Name</th>
+                    <th width=50>Quantity</th>
+                    <th width=100>Price</th>
+                    <th width=200>Buttons</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="r in cart.restaurants">
+                    <td><img src='{{r.img}}' alt='No image available'></td>
+                    <td>{{r.name}}</td>
+                    <td>{{r.quantity}}</td>
+                    <td>{{r.price}}</td>
+                    <td class="cart-buttons"><a type=button class="site-btn sb-red">-</a><a type=button class="site-btn sb-c3">+</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="right-side">
+            <h3 class="margin-top-2">Total: {{cart.totalprice}}</h3>
+            <a id="checkoutbtn" class="site-btn sb-c3">Checkout</a>
+            <a id="emptybtn" class="site-btn sb-red">Empty cart</a>
+        </div>
+    </div>
+</section>
+<!-- Feature section end -->

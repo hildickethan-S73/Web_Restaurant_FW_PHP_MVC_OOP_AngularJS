@@ -16,7 +16,14 @@
         </div>
         <div>
             <input class="site-btn sb-c3 updatebtn" type="button" value="Update" ng-click="update()"
-                ng-show="(profileF.username || profileF.email || filename || profileF.password || ((country.value.name != user.country) && country.value.name != null) || ((state.value.name != user.state) && state.value.name != null) ) && profileF.password == profileF.password2"/>
+                ng-show="(
+                    profileF.username || 
+                    profileF.email || 
+                    filename || 
+                    profileF.password || 
+                    ((country.value.name != user.country) && country.value.name != null) || 
+                    ((state.value.name != user.state) && state.value.name != null) 
+                ) && profileF.password == profileF.password2"/>
         </div>
     </div>
     <div class="row">

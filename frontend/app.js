@@ -60,6 +60,11 @@ restaurantangular.config(['$routeProvider',
                     templateUrl: "frontend/components/profile/view/profile.view.html", 
                     controller: "profileCtrl"
                 })
+
+                .when('/cart', {
+                    templateUrl: "frontend/components/cart/view/cart.view.html", 
+                    controller: "cartCtrl"
+                })
                 
                 .otherwise("/", {templateUrl: "frontend/modules/home/view/home.view.html", controller: "mainCtrl"});
     }

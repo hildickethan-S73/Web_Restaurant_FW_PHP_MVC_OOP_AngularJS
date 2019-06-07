@@ -443,7 +443,9 @@ display: block;
 
 .table_cart {
 	text-align: center;
-	width: 10%;
+}
+.table_cart tr {
+	border: 1px solid rgba(97, 97, 97, 0.438);
 }
 .table_cart a {
 	padding-top:5px;
@@ -507,4 +509,14 @@ display: block;
 
 .dropdown-div { 
 	display: flex;
+}
+
+.cart-buttons {
+	display: flex;
+	margin-top: 22%;
+	margin-left: 10%;
+}
+
+.margin-top-2 {
+	margin-top: 2%;
 }
