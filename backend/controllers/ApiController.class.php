@@ -3,6 +3,9 @@ if ($method=='GET'||$method=='DELETE'){
     $data=$_GET;
     $results = [];
     $response = $object->$method($data);
+    // debugPHP($object);
+    // debugPHP($method);
+    // debugPHP($data);
     if ($method=='DELETE'){
         if ($response){
             $results=$response;

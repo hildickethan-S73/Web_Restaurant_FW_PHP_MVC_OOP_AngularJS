@@ -447,7 +447,7 @@ display: block;
 .table_cart tr {
 	border: 1px solid rgba(97, 97, 97, 0.438);
 }
-.table_cart a {
+.table_cart button {
 	padding-top:5px;
 	padding-bottom:5px;
 }
@@ -513,10 +513,18 @@ display: block;
 
 .cart-buttons {
 	display: flex;
-	margin-top: 22%;
-	margin-left: 10%;
+	margin-top: 36%;
 }
 
 .margin-top-2 {
 	margin-top: 2%;
+}
+
+.table_cart img {
+	height: 13em;
+	width:100%;
+}
+
+button {
+	color: black !important;
 }

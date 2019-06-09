@@ -19,7 +19,10 @@ class ControllerCore{
                 $limit = $this->addLimitStatement($value);
                 $conditions--;
             } else if ($row=='orderby'){
-                $orderby = $this->addOrderByStatement($value);
+                $orderby = $this->addOrderByStatementAsc($value);
+                $conditions--;
+            } else if ($row=='orderbydesc'){
+                $orderby = $this->addOrderByStatementDesc($value);
                 $conditions--;
             } else if ($row=='count'){
                 $conditions--;
@@ -33,9 +36,8 @@ class ControllerCore{
         }
         if ($query == " WHERE "){
             // error_log(print_r($limit,1));
-            return $limit;
+            return $orderby.$limit;
         }
-        // error_log(print_r($query.$limit,1));
         return $query.$orderby.$limit;
     }
     
@@ -49,9 +51,15 @@ class ControllerCore{
         return $query;
     }
 
-    private function addOrderByStatement($order){
+    private function addOrderByStatementAsc($order){
         $query='';
         $query .= ' ORDER BY '.$order;
+        return $query;
+    }
+
+    private function addOrderByStatementDesc($order){
+        $query='';
+        $query .= ' ORDER BY '.$order.' DESC ';
         return $query;
     }
 

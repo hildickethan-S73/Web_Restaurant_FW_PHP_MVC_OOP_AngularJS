@@ -24,6 +24,7 @@ restaurantangular.controller('menuCtrl', function($scope,CommonService,userdata,
         services.deleteF('login','logout').then(function(response){
             if(response == "success"){
                 $rootScope.loggedin=false;
+                delete $rootScope.user;
                 userdata = "";
                 localStorage.removeItem('token');
                 toastr.success('Logged out', 'Success',{
