@@ -1,5 +1,5 @@
 // shop
-restaurantangular.controller('shopCtrl', function($scope,restaurants,services,searchdata){
+restaurantangular.controller('shopCtrl', function($scope,$rootScope,restaurants,services,searchdata){
     $scope.restaurants = restaurants;
     $scope.numPerPage = 3;
     $scope.currentPage = 1;
@@ -46,20 +46,20 @@ restaurantangular.controller('shopCtrl', function($scope,restaurants,services,se
             }
             
             angular.forEach(restaurants,function(r){
-            if (searchform['searchtype'] == "Type" || searchform['searchtype'] ==  undefined){
-                if (r['name'].toLowerCase().startsWith(searchform['searchname'].toLowerCase()) && 
-                    r['tastes'].toLowerCase().startsWith(searchform['searchtastes'].toLowerCase())) {
-                filteredArray.push(r);
-                output.push(r[target]);
+                if (searchform['searchtype'] == "Type" || searchform['searchtype'] ==  undefined){
+                    if (r['name'].toLowerCase().startsWith(searchform['searchname'].toLowerCase()) && 
+                        r['tastes'].toLowerCase().startsWith(searchform['searchtastes'].toLowerCase())) {
+                    filteredArray.push(r);
+                    output.push(r[target]);
+                    }
+                } else {
+                    if (r['name'].toLowerCase().startsWith(searchform['searchname'].toLowerCase()) &&
+                        r['type'] == searchform['searchtype'] &&
+                        r['tastes'].toLowerCase().startsWith(searchform['searchtastes'].toLowerCase())) {
+                    filteredArray.push(r);
+                    output.push(r[target]);
+                    }
                 }
-            } else {
-                if (r['name'].toLowerCase().startsWith(searchform['searchname'].toLowerCase()) &&
-                    r['type'] == searchform['searchtype'] &&
-                    r['tastes'].toLowerCase().startsWith(searchform['searchtastes'].toLowerCase())) {
-                filteredArray.push(r);
-                output.push(r[target]);
-                }
-            }
             });
             $scope.autocompleteRestaurants[id] = output;
         } else {
@@ -71,6 +71,25 @@ restaurantangular.controller('shopCtrl', function($scope,restaurants,services,se
         var id = event.target.parentNode.parentNode.parentNode.children[0].id;
         $scope.searchform[id] = string;
         $scope.autocompleteRestaurants[id] = null;
+    }
+
+    $scope.addToCart = function(r) {
+        var cart = JSON.parse(localStorage.getItem('cart'));
+        var exists = false;
+        angular.forEach(cart.restaurants, function(res){
+            if (res.id == r.id){
+                res.quantity += 1;
+                $rootScope.totalitems += 1;
+                exists = true;
+            }
+        });
+        if (!exists){
+            r.quantity = 1;
+            $rootScope.totalitems += 1;
+            cart.restaurants.push(r);
+        }
+        console.log(cart);
+        localStorage.setItem('cart',JSON.stringify(cart));
     }
 });
 

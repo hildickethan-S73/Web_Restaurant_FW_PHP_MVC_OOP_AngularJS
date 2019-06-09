@@ -21,13 +21,14 @@
             </thead>
             <tbody>
                 <tr ng-repeat="r in cart.restaurants">
-                    <td><img src='{{r.img}}' alt='No image available'></td>
+                    <td><img src='frontend/assets/img/bgrestaurant2.jpg' alt='No image available'></td>
                     <td>{{r.name}}</td>
                     <td>{{r.quantity}}</td>
                     <td>{{r.price}}</td>
                     <td class="cart-buttons">
                         <button ng-disabled="r.quantity < 2" ng-click="minus(r)" class="site-btn sb-red">-</button>
                         <button ng-click="plus(r)" class="site-btn sb-c3">+</button>
+                        <button ng-click="remove(r,$index)" class="site-btn sb-c2">Remove</button>
                     </td>
                 </tr>
             </tbody>

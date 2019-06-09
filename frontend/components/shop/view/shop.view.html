@@ -46,6 +46,7 @@
 			<div ng-repeat="r in filteredRestaurants" class="col-md-4 feature">
 					<a href="#/shop/{{r.id}}"><img src="frontend/assets/img/restaurant1.jpg" alt="#"></a>
 					<h4>{{r.name}}</h4>
+					<button ng-click="addToCart(r)" class="site-btn sb-c3">+</button>
 			</div>
 		</div>
 		<div id="pager">

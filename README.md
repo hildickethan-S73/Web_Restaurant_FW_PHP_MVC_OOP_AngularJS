@@ -10,6 +10,7 @@ Simple restaurant web page made with a PHP Framework, Angular JS 1.4 and MVC arc
 | Shop | Search bar that changes the restaurants, pagination, details page |
 | Contact | Google Maps pin, contact form with email | 
 | Profile | Dropzone for avatar, profile updating, dependant dropdowns for countries |
+| Cart | Quantity changing, item removing, cart emptying and checkout buttons, total price |
 
 <br>
 
@@ -48,7 +49,7 @@ Simple restaurant web page made with a PHP Framework, Angular JS 1.4 and MVC arc
 #### TODO
 - [] Likes module
 - [] Social Login with Auth0
-- [] Cart or CRUD module
+- [x] Cart module
 - [] Improve PHP controllers
 - [] Improve HTML with directives 
 - [] Translation
@@ -56,6 +57,8 @@ Simple restaurant web page made with a PHP Framework, Angular JS 1.4 and MVC arc
 
 #### Known issues
 * Login and Register forms don't have validation
+* Cart doesn't check for errors on checkout
+* Cart doesn't check for JWT token on checkout
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
