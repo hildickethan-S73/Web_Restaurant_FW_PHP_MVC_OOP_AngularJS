@@ -54,11 +54,13 @@ Simple restaurant web page made with a PHP Framework, Angular JS 1.4 and MVC arc
 - [] Improve HTML with directives 
 - [] Translation
 - [] Upload .sql file when finished
+- [] Require account activation to checkout
 
 #### Known issues
 * Login and Register forms don't have validation
 * Cart doesn't check for errors on checkout
 * Cart doesn't check for JWT token on checkout
+* The first time you enter a profile, the state is disabled until you refresh or pick a country, no idea why this happens
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 

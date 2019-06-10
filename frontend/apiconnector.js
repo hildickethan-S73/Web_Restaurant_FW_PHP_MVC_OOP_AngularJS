@@ -97,6 +97,20 @@ restaurantangular.factory("services", ['$http','$q', function ($http, $q) {
       return promise;
    };
 
+   obj.delete = function (module, extension = "") {
+      var defered=$q.defer();
+      var promise=defered.promise;
+      $http({
+            method: 'DELETE',
+            url: serviceBase + module + '/' + extension 
+         }).success(function(data, status, headers, config) {
+            defered.resolve(data);
+         }).error(function(data, status, headers, config) {
+            defered.reject(data);
+         });
+      return promise;
+   };
+
    obj.deleteF = function (module, functi) {
       var defered=$q.defer();
       var promise=defered.promise;

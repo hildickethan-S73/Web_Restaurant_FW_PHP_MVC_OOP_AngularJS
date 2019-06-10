@@ -63,7 +63,7 @@
                             <h4>E-mail</h4>
                             <input ng-model="profileF.email" type="email" class="form-control" name="email" placeholder="{{user.email}}" title="enter your email">
                             <br>
-                            <h4 ng-click="log()" >Password</h4>
+                            <h4>Password</h4>
                             <input ng-model="profileF.password" type="password" class="form-control" name="password" placeholder="password" title="enter your password">
                             <br>
                             <h4 ng-show="profileF.password">Confirm password</h4>
@@ -77,16 +77,8 @@
                     </div>
                 </form>
             </div>
-            <div ng-show="isSet(2)">
-                <form class="form">
-                    <div class="form-group">
-                        <div class="col-xs-6">
-                            <h4>Username2</h4>
-                            <input type="text" class="form-control" name="username"
-                                placeholder="username" title="enter your username">
-                        </div>
-                    </div>
-                </form>
+            <div ng-show="isSet(2)" ng-controller="favCtrl">
+                <div ng-include='"frontend/components/profile/favourites/view/favourites.view.html"'></div>
             </div>
             <div ng-show="isSet(3)">
                 <form class="form">

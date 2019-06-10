@@ -43,7 +43,7 @@ restaurantangular.controller('cartCtrl', function($scope,$rootScope,services,toa
 
     $scope.remove = function(r,index) {
         $scope.cart.totalprice -= parseInt(r.price * r.quantity);
-        $rootScope.totalitems -= parseInt(r.price * r.quantity);
+        $rootScope.totalitems -= parseInt(r.quantity);
         if (cart.restaurants.length == 1){
             cart.restaurants.pop();
         } else {

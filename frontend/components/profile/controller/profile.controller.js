@@ -1,4 +1,5 @@
 restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services,userdata,toastr) {
+    // TABS
     $scope.tab = 1;
 
     $scope.setTab = function (tabId) {
@@ -9,6 +10,7 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
         return $scope.tab === tabId;
     };
 
+    // DROPZONE
     $scope.dropzoneConfig = {
         'options': { // passed into the Dropzone constructor
           'url': 'backend/api/profile/upload-true',
@@ -40,13 +42,9 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
             }
         }
     };
-
-    $scope.log = function(){
-        console.log(userdata.user);
-        console.log($scope.state);
-        
-    }
     
+    // TAB 1, UPDATE
+    ///////////////////////////////////
     $scope.update = function() {
         var extension = `username-${userdata.user.username}`;
         var data = {
@@ -151,4 +149,6 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
             }
         });
     }
+
+   
 });

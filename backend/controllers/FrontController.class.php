@@ -24,7 +24,8 @@ class FrontController {
             'details',
             'login',
             'profile',
-            'cart'
+            'cart',
+            'favourites'
         );
         return $allowedPages;
     }
