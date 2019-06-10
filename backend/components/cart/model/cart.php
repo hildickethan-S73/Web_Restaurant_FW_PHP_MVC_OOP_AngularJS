@@ -15,9 +15,9 @@ if ($method == 'POST'){
         $method = "GET";
         $_GET['orderbydesc']="pid";
         $_GET['limit']=1;
-        include_once CONTROLLER_PATH.'ApiController.class.php';
+        include CONTROLLER_PATH.'ApiController.class.php';
         
-        $pid = $results[0]->pid;
+        $pid = ($results[0]->pid)+1;
         $uid = $_SESSION['user']->id;
 
         // reset our GET request

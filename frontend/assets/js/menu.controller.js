@@ -1,10 +1,13 @@
 restaurantangular.controller('menuCtrl', function($scope,CommonService,userdata,services,toastr,$rootScope){
     var cart = JSON.parse(localStorage.getItem('cart'));
     $rootScope.totalitems = 0;
+    if (cart == null) {
+        cart = {"restaurants":[]};
+        localStorage.setItem('cart',JSON.stringify(makeshiftcart));
+    }
     angular.forEach(cart.restaurants, function(r){
         $rootScope.totalitems += r.quantity;
     });
-
     $scope.open = function(){
         CommonService.openModal('frontend/components/login/view/login.view.html','loginCtrl');
     }
