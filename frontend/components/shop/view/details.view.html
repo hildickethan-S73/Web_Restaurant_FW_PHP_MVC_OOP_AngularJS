@@ -22,6 +22,7 @@
                 <li>Tastes: {{data.tastes}}</li>
             </ul>
             <a href="#/shop"><input class="site-btn sb-c2" type="button" value="Back"/></a>
+            <button ng-controller="favCtrl" ng-click="like(data)" ng-init="checkLikes([data])" class="site-btn" ng-class="{'sb-red':data.liked}">♥</button>
         </div>
 	</div>
 </section>

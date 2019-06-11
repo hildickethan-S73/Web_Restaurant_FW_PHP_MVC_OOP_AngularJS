@@ -30,6 +30,16 @@ restaurantangular.controller('favCtrl', function ($scope,$rootScope,services,use
         });
     }
 
+    $scope.totalLikes = function() {
+        $scope.$watch('loggedin',function(){
+            if ($rootScope.loggedin) {
+                services.get('favourites',`count-1/uid-${userdata.user.id}`).then(function(response){
+                    $rootScope.totallikes = response[0].rowcount;
+                });
+            }
+        });
+    }
+
     $scope.like = function(r) {
         if (!r.liked){
             var data = {
@@ -45,7 +55,7 @@ restaurantangular.controller('favCtrl', function ($scope,$rootScope,services,use
             });
         } else {
             services.delete('favourites',`uid-${userdata.user.id}/rid-${r.id}`).then(function(response){
-                console.log(response);
+                // console.log(response);
                 r.liked = false;
             });
         }
@@ -53,8 +63,9 @@ restaurantangular.controller('favCtrl', function ($scope,$rootScope,services,use
 
     $scope.unlike = function(r,index) {        
         services.delete('favourites',`uid-${userdata.user.id}/rid-${r.rid}`).then(function(response){
-            console.log(response);
+            // console.log(response);
             $scope.pagination.restaurants.splice(index,1);
+            $rootScope.totallikes -= 1;
             calcPages();
         });
     }
