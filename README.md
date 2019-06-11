@@ -18,6 +18,7 @@ Simple restaurant web page made with a PHP Framework, Angular JS 1.4 and MVC arc
 | - | - |
 | Register | Modal, Email activation with Mailgun
 | Login | Modal, JWT token validation, password recovery with email |
+| Favourites | Like and unlike button in home, shop and details, My Favourites tab in profile, Dashboard style favourite counter in profile |
 
 
 ###  **Technologies used**
@@ -47,14 +48,15 @@ Simple restaurant web page made with a PHP Framework, Angular JS 1.4 and MVC arc
 * Search bar redirects to details if there is only 1 result
 
 #### TODO
-- [] Likes module
-- [] Social Login with Auth0
+- [x] Favourites module
+- [ ] Social Login with Auth0
 - [x] Cart module
-- [] Improve PHP controllers
-- [] Improve HTML with directives 
-- [] Translation
-- [] Upload .sql file when finished
-- [] Require account activation to checkout
+- [ ] Improve PHP controllers
+- [ ] Improve HTML with directives 
+- [ ] Translation
+- [ ] Upload .sql file when finished
+- [ ] Require account activation to checkout
+- [ ] JWT for favourites?
 
 #### Known issues
 * Login and Register forms don't have validation
