@@ -54,7 +54,7 @@ Simple restaurant web page made with a PHP Framework, Angular JS 1.4 and MVC arc
 - [ ] Improve PHP controllers
 - [ ] Improve HTML with directives 
 - [ ] Translation
-- [ ] Upload .sql file when finished
+- [x] Upload .sql file when finished
 - [ ] Require account activation to checkout
 - [ ] JWT for favourites?
 
