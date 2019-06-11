@@ -8,6 +8,7 @@ restaurantangular.controller('mainCtrl', function($scope,restaurants,searchdata)
       var startPos = ($scope.currentPage - 1) * 3;
       $scope.filteredRestaurants = $scope.restaurants.slice(startPos, startPos + 3);
   };
+  
   $scope.set = function(data) {
     searchdata.search.searchname = data['searchname'];
     searchdata.search.searchtastes = data['searchtastes'];
