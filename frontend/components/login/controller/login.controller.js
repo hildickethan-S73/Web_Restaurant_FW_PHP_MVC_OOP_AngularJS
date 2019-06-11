@@ -68,7 +68,7 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userd
                             // service for faster client loading if no refresh
                             userdata.user=response;
 
-                            // contact with menu controller
+                            // contact with menu controller   
                             $rootScope.loggedin = true;
                             if (response.admin == 1){
                                 $rootScope.admin = true;

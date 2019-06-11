@@ -1,6 +1,4 @@
-restaurantangular.controller('favCtrl', function ($scope,$rootScope,services,userdata,toastr) {
-    // TAB 2, FAVOURITES
-    ///////////////////////////////////
+restaurantangular.controller('favCtrl', function ($scope,$rootScope,services,userdata,$q) {
     $scope.load = function() {
         services.get('favourites',`uid-${userdata.user.id}`).then(function(response){
             $scope.pagination = {
@@ -13,19 +11,23 @@ restaurantangular.controller('favCtrl', function ($scope,$rootScope,services,use
     }
 
     $scope.checkLikes = function(restaurants) {
-        $scope.$watch('userdata.user',function(){
-            services.get('favourites',`uid-${userdata.user.id}`).then(function(response){
-                var likes = [];
-                angular.forEach(response,function(e){
-                    likes.push(e.rid);
+        $scope.$watch('loggedin',function(){
+            // console.log(new Date());
+            if (restaurants) {
+                // console.log(userdata.user);
+                services.get('favourites',`uid-${userdata.user.id}`).then(function(response){
+                    var likes = [];
+                    angular.forEach(response,function(e){
+                        likes.push(e.rid);
+                    });
+                    angular.forEach(restaurants,function(e){
+                        if (likes.indexOf(e.id) != -1){
+                            e.liked = true;
+                        }
+                    });
                 });
-                angular.forEach(restaurants,function(e){
-                    if (likes.indexOf(e.id) != -1){
-                        e.liked = true;
-                    }
-                });
-            });
-        })
+            }
+        });
     }
 
     $scope.like = function(r) {

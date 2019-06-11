@@ -47,7 +47,9 @@
 					<a href="#/shop/{{r.id}}"><img src="frontend/assets/img/restaurant1.jpg" alt="#"></a>
 					<h4>{{r.name}}</h4>
 					<button ng-click="addToCart(r)" class="site-btn sb-c3">+</button>
+					<button ng-controller="favCtrl" ng-click="like(r)" class="site-btn" ng-class="{'sb-red':r.liked}">♥</button>
 			</div>
+			<div hidden ng-controller="favCtrl" ng-init="checkLikes(restaurants)"></div>
 		</div>
 		<div id="pager">
 			<uib-pagination

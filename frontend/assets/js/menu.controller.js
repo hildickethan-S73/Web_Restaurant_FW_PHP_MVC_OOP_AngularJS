@@ -14,15 +14,19 @@ restaurantangular.controller('menuCtrl', function($scope,CommonService,userdata,
 
     services.getF('login','check').then(function(response){
         if (response != "notlogged"){
-            $rootScope.loggedin=true;
             if (response.admin == 1){
                 $rootScope.admin = true;
             } else {
                 $rootScope.admin = false;
             }
             userdata.user = response;
+            // console.log(userdata.user);
+
+            
             $rootScope.user = userdata.user;
             localStorage.setItem('token',userdata.user.token);
+            $rootScope.loggedin=true;
+            $rootScope.$broadcast('user-logged');
             // console.log(userdata);
         } else {
             $rootScope.loggedin=false;
