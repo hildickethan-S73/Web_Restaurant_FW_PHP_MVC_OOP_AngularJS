@@ -1,19 +1,4 @@
 restaurantangular.controller('cartCtrl', function($scope,$rootScope,services,toastr){
-    // var restaurants = [];
-    // restaurants.push({
-    //     "name":"jordilg13",
-    //     "quantity":1,
-    //     "price":3,
-    //     "id":9
-    // });
-    // restaurants.push({
-    //     "name":"raulojeda22",
-    //     "quantity":8,
-    //     "price":10,
-    //     "id":10
-    // });
-    // localStorage.setItem('cart',JSON.stringify({"restaurants":restaurants}));
-
     var cart = JSON.parse(localStorage.getItem('cart'));
     // console.log(cart.restaurants);
 
@@ -22,6 +7,16 @@ restaurantangular.controller('cartCtrl', function($scope,$rootScope,services,toa
         totalprice += (r.quantity*r.price)
     });
     
+    $scope.totalPurchases = function() {
+        $scope.$watch('loggedin',function(){
+            if ($rootScope.loggedin) {
+                services.get('cart',`groupby-pid/uid-${$rootScope.user.id}`).then(function(response){
+                    $scope.totalpurchases = response.length;
+                });
+            }
+        });
+    }
+
     $scope.cart = {
         restaurants: cart.restaurants,
         totalprice: totalprice

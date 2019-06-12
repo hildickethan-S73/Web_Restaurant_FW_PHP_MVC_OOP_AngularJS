@@ -5,6 +5,7 @@ class ControllerCore{
         $query='';
         $limit='';
         $orderby='';
+        $groupby='';
         if ($conditions>=1){
             $query = " WHERE ";
         }
@@ -26,6 +27,9 @@ class ControllerCore{
                 $conditions--;
             } else if ($row=='count'){
                 $conditions--;
+            } else if ($row=='groupby'){
+                $groupby = $this->addGroupByStatement($value);
+                $conditions--;
             } else {
                 $query .= $row." LIKE '".str_replace('!','%',$value)."'"; 
                 $conditions--;
@@ -36,9 +40,9 @@ class ControllerCore{
         }
         if ($query == " WHERE "){
             // error_log(print_r($limit,1));
-            return $orderby.$limit;
+            return $groupby.$orderby.$limit;
         }
-        return $query.$orderby.$limit;
+        return $query.$groupby.$orderby.$limit;
     }
     
     private function addLimitStatement($limit){
@@ -63,6 +67,12 @@ class ControllerCore{
         return $query;
     }
 
+    private function addGroupByStatement($group){
+        $query='';
+        $query .= ' GROUP BY '.$group;
+        return $query;
+    }
+
     protected function runQuery($query){
         $connect = connect::con();
         $response = mysqli_query($connect, $query);
@@ -78,6 +88,7 @@ class ControllerCore{
             $query .= $this->addWhereStatement($data);
         }
         $query = str_replace('%20', ' ', $query);
+        debugPHP($query);
         return $query;
     }
     protected function buildPostQuery($data){
