@@ -1,12 +1,5 @@
 restaurantangular.controller('cartCtrl', function($scope,$rootScope,services,toastr){
-    var cart = JSON.parse(localStorage.getItem('cart'));
-    // console.log(cart.restaurants);
-
-    var totalprice = 0;
-    angular.forEach(cart.restaurants,function(r){
-        totalprice += (r.quantity*r.price)
-    });
-    
+    // PROFILE     
     $scope.totalPurchases = function() {
         $scope.$watch('loggedin',function(){
             if ($rootScope.loggedin) {
@@ -15,8 +8,51 @@ restaurantangular.controller('cartCtrl', function($scope,$rootScope,services,toa
                 });
             }
         });
+    };
+
+    // TAB
+    $scope.loadPurchases = function() {
+        $scope.$watch('loggedin',function(){
+            if ($rootScope.loggedin) {
+                services.get('cart',`uid-${$rootScope.user.id}`).then(function(response){
+                    $scope.purchases = {};
+                    var num = 1;
+                    var prev;
+                    
+                    services.get('restaurants').then(function(response2){
+                        angular.forEach(response, function(e){
+                            if ($scope.purchases[num] == undefined){
+                                $scope.purchases[num] = {
+                                    "restaurants": [e],
+                                    "totalprice": e.quantity*e.price
+                                };                            
+                            } else {
+                                $scope.purchases[num].restaurants.push(e);
+                                $scope.purchases[num].totalprice += e.quantity*e.price;
+                            }
+    
+                            
+                            if (e.pid != prev)
+                                num++;
+                            prev = e.pid;
+
+                            var index = response2.findIndex( r => r.id === e.rid );
+                            e.name = response2[index].name;
+                        });  
+                    });
+                });
+            }
+        });
     }
 
+    // CART page
+    var cart = JSON.parse(localStorage.getItem('cart'));
+    
+    var totalprice = 0;
+    angular.forEach(cart.restaurants,function(r){
+        totalprice += (r.quantity*r.price)
+    });
+    
     $scope.cart = {
         restaurants: cart.restaurants,
         totalprice: totalprice

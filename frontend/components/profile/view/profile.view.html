@@ -38,8 +38,12 @@
             
             <ul class="list-group">
                 <li class="list-group-item text-muted">Activity</li>
-                <li class="list-group-item text-right" ng-controller="cartCtrl" ng-init="totalPurchases()"><span class="pull-left"><strong>Purchases</strong></span> {{totalpurchases}}</li>
-                <li class="list-group-item text-right" ng-controller="favCtrl" ng-init="totalLikes()"><span class="pull-left"><strong>Favourites</strong></span> {{totallikes}}</li>
+                <li class="list-group-item text-right" ng-controller="cartCtrl" ng-init="totalPurchases()">
+                    <span class="pull-left"><strong>Purchases</strong></span> {{totalpurchases}}
+                </li>
+                <li class="list-group-item text-right" ng-controller="favCtrl" ng-init="totalLikes()">
+                    <span class="pull-left"><strong>Favourites</strong></span> {{totallikes}}
+                </li>
             </ul>
             <br>
             
@@ -81,15 +85,7 @@
                 <div ng-include='"frontend/components/profile/favourites/view/favourites.view.html"'></div>
             </div>
             <div ng-show="isSet(3)" ng-controller="cartCtrl">
-                <form class="form">
-                    <div class="form-group">
-                        <div class="col-xs-6">
-                            <h4>Username3</h4>
-                            <input type="text" class="form-control" name="username"
-                                placeholder="username" title="enter your username">
-                        </div>
-                    </div>
-                </form>
+                <div ng-include='"frontend/components/cart/view/profilecart.view.html"'></div>
             </div>
         </div>
     </div>

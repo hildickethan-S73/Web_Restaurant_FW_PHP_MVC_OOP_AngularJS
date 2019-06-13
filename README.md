@@ -19,6 +19,7 @@ Simple restaurant web page made with a PHP Framework, Angular JS 1.4 and MVC arc
 | Register | Modal, Email activation with Mailgun
 | Login | Modal, JWT token validation, password recovery with email |
 | Favourites | Like and unlike button in home, shop and details, My Favourites tab in profile, Dashboard style favourite counter in profile |
+| Cart | Purchase counter in profile, My Purchases tab with all purchases |
 
 
 ###  **Technologies used**
@@ -59,10 +60,10 @@ Simple restaurant web page made with a PHP Framework, Angular JS 1.4 and MVC arc
 - [ ] JWT for favourites?
 
 #### Known issues
-* Login and Register forms don't have validation
+* Login and Register forms don't have REGEX validation
 * Cart doesn't check for errors on checkout
 * Cart doesn't check for JWT token on checkout
-* The first time you enter a profile, the state is disabled until you refresh or pick a country, no idea why this happens
+* The first time you enter a profile, the state is disabled until you refresh or pick a country
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
@@ -72,3 +73,12 @@ Simple restaurant web page made with a PHP Framework, Angular JS 1.4 and MVC arc
    [Cloud83]: <https://colorlib.com/wp/template/cloud83/>
    [Yelp Fusion API]: <https://www.yelp.com/fusion>
    [Google Maps API]: <https://developers.google.com/maps/documentation/javascript/tutorial>
+   [Raül Ojeda]: <https://github.com/raulojeda22>
+   [AngularJS v1.4.9]: <https://angularjs.org/>
+   [MySQL]: <https://www.mysql.com/>
+   [Apache2]: <https://httpd.apache.org/>
+   [Mailgun]: <https://www.mailgun.com/>
+   [JWT]: <https://jwt.io/>
+   [Bootstrap]: <https://getbootstrap.com/>
+   [Toastr]: <https://github.com/CodeSeven/toastr>
+   [Dropzone]: <https://www.dropzonejs.com/>

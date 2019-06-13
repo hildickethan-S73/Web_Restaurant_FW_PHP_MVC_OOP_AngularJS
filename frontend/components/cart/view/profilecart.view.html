@@ -1,0 +1,25 @@
+<div class="col-xs-6" ng-init="loadPurchases()">
+    <div ng-repeat="p in purchases">
+        <br>
+        <h4>Purchase {{$index+1}} <span class="right-side remove-margin">Total Price: {{p.totalprice}}</span></h4>
+        <table class="table_cart col-sm-12">
+            <thead>
+                <tr>
+                    <th width=200>Image</th>
+                    <th width=300>Name</th>
+                    <th width=50>Quantity</th>
+                    <th width=100>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="r in p.restaurants">
+                    <td><img src='frontend/assets/img/bgrestaurant2.jpg' alt='No image available'></td>
+                    <td>{{r.name}}</td>
+                    <td>{{r.quantity}}</td>
+                    <td>{{r.price}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+</div>
