@@ -1,4 +1,10 @@
 <?php 
+/**
+ * Regenerates the PHPSESSION
+ * Not in use since AngularJS was implemented
+ *
+ * @return void
+ */
 function regenerateSession(){
     
 	// Create new session without destroying the old one

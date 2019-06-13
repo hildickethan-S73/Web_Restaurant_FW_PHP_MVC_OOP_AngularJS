@@ -1,5 +1,14 @@
 <?php
+/**
+ * Core class to build MySQL queries
+ */
 class ControllerCore{
+    /**
+     * Goes through the array and adds WHERE conditions to the query
+     *
+     * @param array $array
+     * @return string
+     */
     private function addWhereStatement($array){
         $conditions=count($array);
         $query='';
@@ -45,6 +54,12 @@ class ControllerCore{
         return $query.$groupby.$orderby.$limit;
     }
     
+    /**
+     * Adds LIMIT to the query
+     *
+     * @param string $limit
+     * @return string
+     */
     private function addLimitStatement($limit){
         $query='';
         $values=explode(',',$limit);
@@ -55,30 +70,60 @@ class ControllerCore{
         return $query;
     }
 
+    /**
+     * Adds ORDER BY to the query
+     *
+     * @param string $order
+     * @return string
+     */
     private function addOrderByStatementAsc($order){
         $query='';
         $query .= ' ORDER BY '.$order;
         return $query;
     }
 
+    /**
+     * Adds ORDER BY DESC to the query
+     *
+     * @param string $order
+     * @return string
+     */
     private function addOrderByStatementDesc($order){
         $query='';
         $query .= ' ORDER BY '.$order.' DESC ';
         return $query;
     }
 
+    /**
+     * Adds GROUP BY to the query
+     *
+     * @param string $group
+     * @return string
+     */
     private function addGroupByStatement($group){
         $query='';
         $query .= ' GROUP BY '.$group;
         return $query;
     }
 
+    /**
+     * Runs the query in MySQL
+     *
+     * @param string $query
+     * @return array
+     */
     protected function runQuery($query){
         $connect = connect::con();
         $response = mysqli_query($connect, $query);
         connect::close($connect);
         return $response;
     }
+    /**
+     * Builds a GET query
+     *
+     * @param array $data
+     * @return string
+     */
     protected function buildGetQuery($data){
         $query = 'SELECT * FROM '.$this->tableName;
         if ($data!="" && is_array($data)){
@@ -90,6 +135,12 @@ class ControllerCore{
         $query = str_replace('%20', ' ', $query);
         return $query;
     }
+    /**
+     * Builds a POST query
+     *
+     * @param object $data
+     * @return string
+     */
     protected function buildPostQuery($data){
         if ($data!="" && is_object($data)){
             $query = 'INSERT INTO '.$this->tableName;
@@ -109,6 +160,12 @@ class ControllerCore{
         // error_log(print_r($query,1));
         return $query;
     }
+    /**
+     * Builds a PUT query
+     *
+     * @param array $data
+     * @return string
+     */
     protected function buildPutQuery($data){
         if ($data!="" && is_array($data)){
             $query = 'UPDATE '.$this->tableName.' SET ';
@@ -122,6 +179,12 @@ class ControllerCore{
         // error_log(print_r($query,1));
         return $query;
     }
+    /**
+     * Builds a DELETE query
+     *
+     * @param array $data
+     * @return string
+     */
     protected function buildDeleteQuery($data){
         $query = 'DELETE FROM '.$this->tableName;
         $query .= $this->addWhereStatement($data);

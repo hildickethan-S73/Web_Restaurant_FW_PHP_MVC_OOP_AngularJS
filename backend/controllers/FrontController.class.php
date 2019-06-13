@@ -1,13 +1,29 @@
 <?php
+/**
+ * FrontController is a class that loads the backend
+ * via url in order to have pretty urls in our requests
+ */
 class FrontController {
     static $_instance;
 
+    /**
+     * Gets instance of self to not create 
+     * multiple instances of the same object
+     *
+     * @return self
+     */
     public static function getInstance() {
         if (!(self::$_instance instanceof self))
             self::$_instance = new self();
         return self::$_instance;
     }
 
+    /**
+     * Replaces the server url with the local file path
+     * and runs the main function
+     *
+     * @return void
+     */
     public function FrontController(){
         $this->uri=$_SERVER['REQUEST_URI'];
         $this->uri=str_replace('/angularjs/backend/',"",$this->uri);
@@ -15,6 +31,11 @@ class FrontController {
         $this->run();
     }
 
+    /**
+     * Stores an array of allowed pages for backend queries
+     *
+     * @return array
+     */
     private function getAllowedPages(){
         $allowedPages=array(
             'home',
@@ -30,6 +51,15 @@ class FrontController {
         return $allowedPages;
     }
     
+    /**
+     * Loads the file in the specified route
+     *
+     * @param string $module
+     * @param string $folder
+     * @param string $filename
+     * @param sring $extension
+     * @return void
+     */
     private function loadFiles($module,$folder,$filename,$extension){
         if (file_exists(COMPONENTS_PATH.$module.$folder.$filename.$extension)) {
             include_once COMPONENTS_PATH.$module.$folder.$filename.$extension;
@@ -38,6 +68,13 @@ class FrontController {
         }
     }
 
+    /**
+     * Updates current time if user is logged in
+     * Not in use since AngularJS was implemented
+     *
+     * @param string $uri
+     * @return void
+     */
     private function updateTime($uri){
         if (isset($_SESSION["user"])) {
             if (!(isset($uri[2]) && $uri[2] == 'activity-true'))
@@ -45,6 +82,14 @@ class FrontController {
         }
     }
 
+
+    /**
+     * Main run function of the class
+     * Uses the url to load an object and run
+     * a query with that it
+     *
+     * @return void
+     */
     public function run(){
         session_start();
         $allowedPages=$this->getAllowedPages();

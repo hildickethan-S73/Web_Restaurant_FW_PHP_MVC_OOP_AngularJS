@@ -1,11 +1,13 @@
 <?php
+/**
+ * This file is what processes the data
+ * received from JS and turns it into a
+ * function with the current object
+ */
 if ($method=='GET'||$method=='DELETE'){
     $data=$_GET;
     $results = [];
     $response = $object->$method($data);
-    // debugPHP($object);
-    // debugPHP($method);
-    // debugPHP($data);
     if ($method=='DELETE'){
         if ($response){
             $results=$response;

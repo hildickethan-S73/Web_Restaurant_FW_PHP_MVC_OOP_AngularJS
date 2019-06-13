@@ -2,6 +2,13 @@
 spl_autoload_register(null,false);
 spl_autoload_extensions('.php,.class.php');
 spl_autoload_register('loadClasses');
+/**
+ * Automatically looks for and loads classes
+ * when the server goes to use them
+ *
+ * @param string $className
+ * @return void
+ */
 function loadClasses($className){
     // error_log(print_r($className,1));
     
