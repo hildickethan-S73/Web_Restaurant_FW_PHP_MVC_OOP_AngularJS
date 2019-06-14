@@ -1,4 +1,9 @@
 <?php
+/**
+ * Uploads files to /media folder
+ *
+ * @return array
+ */
 function upload_files() {
     $error = "";
     $copiarFichero = false;
@@ -105,6 +110,11 @@ function upload_files() {
     }
 }//End upload_files
 
+/**
+ * Deletes files from /media folder
+ *
+ * @return boolean
+ */
 function remove_files(){    
 	if(file_exists(MEDIA_PATH.$_SESSION['nombreFichero'])){
 		unlink(MEDIA_PATH.$_SESSION['nombreFichero']);

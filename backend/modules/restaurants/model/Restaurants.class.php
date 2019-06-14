@@ -1,4 +1,8 @@
 <?php
+/**
+ * Restaurants class extending off ModelController
+ * Specifies the table name and has it's own instance
+ */
 class Restaurants extends ModelController{
     protected $tableName='restaurants';
     private static $instance;

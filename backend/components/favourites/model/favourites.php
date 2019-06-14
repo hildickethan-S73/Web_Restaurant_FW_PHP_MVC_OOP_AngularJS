@@ -1,4 +1,7 @@
 <?php
+/**
+ * Standard process with object encoding for posts
+ */
 $method = $_SERVER['REQUEST_METHOD'];
 $object = Favourites::getInstance();
 

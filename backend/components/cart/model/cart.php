@@ -4,6 +4,9 @@ $object = Cart::getInstance();
 
 // I dont like all the object and request resetting but it's how the framework is built
 if ($method == 'POST'){
+    /**
+     * Checkout process
+     */
     if (isset($_GET['checkout'])){
         unset($_GET['checkout']);
         // include_once CONTROLLER_PATH.'ApiController.class.php';
@@ -53,6 +56,10 @@ if ($method == 'POST'){
         
     }
 } else {
+    /**
+     * For regular query handling
+     * usually just GETs
+     */
     include_once CONTROLLER_PATH.'ApiController.class.php';
     echo json_encode($results);
 }

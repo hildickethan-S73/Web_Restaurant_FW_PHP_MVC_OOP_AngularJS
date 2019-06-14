@@ -3,7 +3,7 @@ restaurantangular.controller('menuCtrl', function($scope,CommonService,userdata,
     $rootScope.totalitems = 0;
     if (cart == null) {
         cart = {"restaurants":[]};
-        localStorage.setItem('cart',JSON.stringify(makeshiftcart));
+        localStorage.setItem('cart',JSON.stringify(cart));
     }
     angular.forEach(cart.restaurants, function(r){
         $rootScope.totalitems += r.quantity;

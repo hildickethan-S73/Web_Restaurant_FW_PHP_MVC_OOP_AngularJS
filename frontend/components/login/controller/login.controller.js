@@ -20,9 +20,9 @@ restaurantangular.controller('loginCtrl', function ($scope,services,toastr,userd
 
     $scope.register = function() {
         $scope.registerF.avatar = `https://api.adorable.io/avatars/256/${$scope.registerF.username}`;
-        services.get('login',`request-true/email-${$scope.registerF.email}`).then(function (response){
+        services.get('login',`email-${$scope.registerF.email}`).then(function (response){
             if(!response[0]){
-                services.get('login',`request-true/username-${$scope.registerF.username}`).then(function (response){
+                services.get('login',`username-${$scope.registerF.username}`).then(function (response){
                     if(!response[0]){
                         services.postF('login',$scope.registerF,'register').then(function (response){
                             console.log(response);
@@ -150,7 +150,7 @@ restaurantangular.controller('recoverPWCtrl', function ($scope,services,toastr,$
                     services.put('login',data,`username-${response[0].username}`).then(function(response){
                         // response = JSON.parse(response);
                         console.log(response);
-                        if (response['token']){
+                        if (response == 'true'){
                             toastr.success("Password changed","Notification");
                             location.href='#/';
                         } else {

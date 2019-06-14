@@ -1,12 +1,18 @@
 <?php
 $method = $_SERVER['REQUEST_METHOD'];
 $object = Login::getInstance();
+/**
+ * Import JWT libraries
+ */
 include_once LOGIN_UTILS_PATH.'JWT.php';
 include_once LOGIN_UTILS_PATH.'BeforeValidException.php';
 include_once LOGIN_UTILS_PATH.'ExpiredException.php';
 include_once LOGIN_UTILS_PATH.'SignatureInvalidException.php';
 use Firebase\JWT\JWT;
 
+/**
+ * Get JWT secret from an .ini
+ */
 $secret = parse_ini_file(INI_PATH.'jwt.ini');
 $secret = $secret['secret'];
 
@@ -14,6 +20,12 @@ $secret = $secret['secret'];
 // theres literally the same code 3 times
 
 if ($method == 'POST'){
+    /**
+     * Register function
+     * - Encrypts password with hash
+     * - Creates token with JWT
+     * - Sends email
+     */
     if (isset($_GET['register']) && $_GET['register']){
         unset($_POST['data']['password2']);
         $_POST['data']['password']=password_hash($_POST['data']['password'],PASSWORD_BCRYPT);
@@ -34,15 +46,13 @@ if ($method == 'POST'){
 
         echo json_encode($results);
     }
-
-    if (isset($_GET['recoveremail']) && $_GET['recoveremail']){
-        include_once UTILS_PATH.'mail.inc.php';
-
-        $mailgundata = parse_ini_file(INI_PATH.'mailgun.ini');
-        $results = send_email($_POST['email'], $mailgundata, 'recover');
-        echo json_encode($results);
-    } 
     
+    /**
+     * Function to re-send the email
+     * if token expired when activating
+     *  - Creates new token
+     *  - Sends email
+     */
     if (isset($_GET['sendemail']) && $_GET['sendemail']){
         unset($_GET['sendemail']);
         $emaildata = $_POST['data'];
@@ -61,6 +71,11 @@ if ($method == 'POST'){
         echo json_encode($results);
     } 
 
+    /**
+     * Sends password recovery email
+     * - Creates new token
+     * - Sends email
+     */
     if (isset($_GET['recoverPW']) && $_GET['recoverPW']){
         unset($_GET['recoverPW']);
         $emaildata = $_POST['data'];
@@ -80,6 +95,11 @@ if ($method == 'POST'){
         echo json_encode($results);
     } 
 } else if ($method == 'GET'){
+    /**
+     * Logs user in
+     * - Verifies password
+     * - Creates JWT token
+     */
     if (isset($_GET['login']) && $_GET['login']){
         unset($_GET['login']);
         $loginpassword = $_GET['password'];
@@ -103,12 +123,19 @@ if ($method == 'POST'){
         } else {
             echo 'nouser';
         }
+        /**
+         * Checks if user is logged in
+        */
     } else if (isset($_GET['check']) && $_GET['check']){
         if (isset($_SESSION['user'])){
             echo json_encode($_SESSION['user']);
         } else {
             echo 'notlogged';
         }
+        /**
+         * Checks the time if user is active
+         * - Not in use since implementation of AngularJS
+         */
     } else if (isset($_GET['activity']) && $_GET['activity']){
         if (isset($_SESSION['user'])){
             if (isset($_SESSION["time"])){  
@@ -119,17 +146,18 @@ if ($method == 'POST'){
                 }
             }
         }
-    } else if (isset($_GET['request']) && $_GET['request']){
-        unset($_GET['request']);
-        include_once CONTROLLER_PATH.'ApiController.class.php';
-        echo json_encode($results);
-
+        /**
+         * Regular GET queries
+         */
     } else {
         include_once CONTROLLER_PATH.'ApiController.class.php';
         echo json_encode($results);
     }
-
 } else if ($method == 'DELETE'){
+    /**
+     * Logout
+     * - Unsets session and destroys it
+     */
     if (isset($_GET['logout']) && $_GET['logout']){
         if (isset($_SESSION['user'])){
             unset($_SESSION['user']);
@@ -140,6 +168,11 @@ if ($method == 'POST'){
         } 
     }
 } else if ($method == 'PUT'){
+    /**
+     * Enables account
+     * - Checks token
+     * - Updates activated field in DB
+     */
     if (isset($_GET['enableaccount']) && $_GET['enableaccount']){
         unset($_GET['enableaccount']);
         $token = $_POST['data']['token'];
@@ -158,6 +191,14 @@ if ($method == 'POST'){
         }
         echo json_encode($results);
     } else {
+        /**
+         * Regular update queries
+         * Mainly for recover password and profile
+         * - Checks token
+         * - Encrypts password if it was updated
+         * - Updates $_SESSION if logged in (profile)
+         * - Returns refreshed token if logged in
+         */
         $token = $_POST['data']['token'];
         unset($_POST['data']['token']);
 
@@ -172,11 +213,15 @@ if ($method == 'POST'){
                     $_POST['data']['password']=password_hash($_POST['data']['password'],PASSWORD_BCRYPT);
                 }
                 foreach ($_POST['data'] as $key => $value) {
-                    $_SESSION['user']->$key = $value;
-                    // debugPHP($_SESSION['user']);
+                    /**
+                     * This is because password recovery goes through the same function
+                     * and this errors since theres no logged user
+                     */
+                    if (isset($_SESSION['user']))
+                        $_SESSION['user']->$key = $value;
                 }
                 include_once CONTROLLER_PATH.'ApiController.class.php';
-                if ($results === true) {
+                if ($results === true && isset($_SESSION['user'])) {
                     // JWT update token
                     $payload = array(
                         "message" => $_SESSION['user']->username,

@@ -1,4 +1,12 @@
 <?php
+/**
+ * Builds and sends an email through Mailgun
+ *
+ * @param array $data
+ * @param array $mailgundata
+ * @param string $type
+ * @return array
+ */
 function send_email($data, $mailgundata,$type) {
     $html = '';
     $html .= "<html>";
@@ -101,6 +109,16 @@ function send_email($data, $mailgundata,$type) {
     return $result;
 }
 
+/**
+ * Sends the email via curl
+ *
+ * @param string $from
+ * @param string $to
+ * @param string $subject
+ * @param string $html
+ * @param array $mailgundata
+ * @return array
+ */
 function send_mailgun($from, $to, $subject, $html, $mailgundata){
     $config = array();
     $config['api_key'] = $mailgundata['key']; //API Key
