@@ -1,3 +1,5 @@
+// not used
+
 function changeLang(lang) {
   lang = lang ||                             // chosen lang
          localStorage.getItem('app-lang') || // lang in local storage

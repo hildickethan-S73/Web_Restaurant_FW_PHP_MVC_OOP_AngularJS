@@ -1,14 +1,42 @@
+/**
+  * @this vm
+  * @ngdoc controller
+  * @name restaurantangular.controller:mainCtrl
+  *
+  * @description
+  * Controller for the home or "main" page
+*/
 restaurantangular.controller('mainCtrl', function($scope,restaurants,searchdata){
   $scope.restaurants = restaurants;
   $scope.numPerPage = 3;
   $scope.currentPage = 1;
 
   $scope.filteredRestaurants = $scope.restaurants.slice(0, 3);
+  /**
+    * @ngdoc method
+    * @name mainCtrl#pageChanged
+    *
+    * @methodOf
+    * restaurantangular.controller:mainCtrl
+    *
+    * @description
+    * Refilter pagination restaurants when page changed
+  */
   $scope.pageChanged = function() {
       var startPos = ($scope.currentPage - 1) * 3;
       $scope.filteredRestaurants = $scope.restaurants.slice(startPos, startPos + 3);
   };
   
+  /**
+    * @ngdoc method
+    * @name mainCtrl#set
+    *
+    * @methodOf
+    * restaurantangular.controller:mainCtrl
+    *
+    * @description
+    * Set the searchdata in the service
+  */
   $scope.set = function(data) {
     searchdata.search.searchname = data['searchname'];
     searchdata.search.searchtastes = data['searchtastes'];
@@ -19,6 +47,19 @@ restaurantangular.controller('mainCtrl', function($scope,restaurants,searchdata)
   var filteredArray = [];
   $scope.autocompleteRestaurants = {};
 
+  /**
+    * @ngdoc method
+    * @name mainCtrl#autocomplete
+    *
+    * @methodOf
+    * restaurantangular.controller:mainCtrl
+    *
+    * @description
+    * Autocomplete fields in the search bar
+    * 
+    * @param {object} searchform the search data
+    * @param {object} event the event to know what field was clicked on
+  */
   $scope.autocomplete = function (searchform, event) {
     var id = event.target.id;
     var output = [];
@@ -56,6 +97,19 @@ restaurantangular.controller('mainCtrl', function($scope,restaurants,searchdata)
     }
   }
 
+  /**
+      * @ngdoc method
+      * @name mainCtrl#fillTextbox
+      *
+      * @methodOf
+      * restaurantangular.controller:mainCtrl
+      *
+      * @description
+      * Fills the field with the autocompleted info
+      * 
+      * @param {string} string the autocompleted string
+      * @param {object} event the field in question
+    */
   $scope.fillTextbox = function (string, event) {
     var id = event.target.parentNode.parentNode.parentNode.children[0].id;
     $scope.searchform[id] = string;

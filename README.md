@@ -58,6 +58,7 @@ Simple restaurant web page made with a PHP Framework, Angular JS 1.4 and MVC arc
 - [x] Upload .sql file when finished
 - [ ] Require account activation to checkout
 - [ ] JWT for favourites?
+- [x] Fully documented
 
 #### Known issues
 * Login and Register forms don't have REGEX validation

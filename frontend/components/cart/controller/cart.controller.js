@@ -1,5 +1,25 @@
+/**
+  * @this vm
+  * @ngdoc controller
+  * @name restaurantangular.controller:cartCtrl
+  *
+  * @description
+  * Controller for the cart
+*/
 restaurantangular.controller('cartCtrl', function($scope,$rootScope,services,toastr){
-    // PROFILE     
+    // PROFILE
+
+    /**
+      * @ngdoc method
+      * @name cartCtrl#totalPurchases
+      *
+      * @methodOf
+      * restaurantangular.controller:cartCtrl
+      *
+      * @description
+      * Calculates the total purchases of the user 
+      * with a GROUP BY query
+    */
     $scope.totalPurchases = function() {
         $scope.$watch('loggedin',function(){
             if ($rootScope.loggedin) {
@@ -11,6 +31,20 @@ restaurantangular.controller('cartCtrl', function($scope,$rootScope,services,toa
     };
 
     // TAB
+    /**
+      * @ngdoc method
+      * @name cartCtrl#loadPurchases
+      *
+      * @methodOf
+      * restaurantangular.controller:cartCtrl
+      *
+      * @description
+      * Loads the purchases, called in the My Purchases tab
+      * - Gets the users purchases
+      * - Gets all restaurants for naming purposes
+      * - Sorts the purchases into a new JSON object
+      * - Adds the name to each relevant ID
+    */ 
     $scope.loadPurchases = function() {
         $scope.$watch('loggedin',function(){
             if ($rootScope.loggedin) {
@@ -46,6 +80,7 @@ restaurantangular.controller('cartCtrl', function($scope,$rootScope,services,toa
     }
 
     // CART page
+    // Gets the total price of items in the cart
     var cart = JSON.parse(localStorage.getItem('cart'));
     
     var totalprice = 0;
@@ -58,6 +93,18 @@ restaurantangular.controller('cartCtrl', function($scope,$rootScope,services,toa
         totalprice: totalprice
     };
 
+    /**
+      * @ngdoc method
+      * @name cartCtrl#plus
+      *
+      * @methodOf
+      * restaurantangular.controller:cartCtrl
+      *
+      * @description
+      * Adds 1 to the quantity
+      * 
+      * @param {object} r the restaurant to add to
+    */
     $scope.plus = function(r) {
         r.quantity += 1;
         $rootScope.totalitems += 1;
@@ -65,6 +112,18 @@ restaurantangular.controller('cartCtrl', function($scope,$rootScope,services,toa
         localStorage.setItem('cart',JSON.stringify(cart));
     };
 
+    /**
+      * @ngdoc method
+      * @name cartCtrl#minus
+      *
+      * @methodOf
+      * restaurantangular.controller:cartCtrl
+      *
+      * @description
+      * Subtracts 1 from the quantity
+      * 
+      * @param {object} r the restaurant to subtract from
+    */
     $scope.minus = function(r) {
         r.quantity -= 1;  
         $rootScope.totalitems -= 1;
@@ -72,6 +131,19 @@ restaurantangular.controller('cartCtrl', function($scope,$rootScope,services,toa
         localStorage.setItem('cart',JSON.stringify(cart));
     };
 
+    /**
+      * @ngdoc method
+      * @name cartCtrl#remove
+      *
+      * @methodOf
+      * restaurantangular.controller:cartCtrl
+      *
+      * @description
+      * Removes the restaurant from the cart
+      * 
+      * @param {object} r the restaurant to remove
+      * @param {int} index the restaurant index to splice from the array
+    */
     $scope.remove = function(r,index) {
         $scope.cart.totalprice -= parseInt(r.price * r.quantity);
         $rootScope.totalitems -= parseInt(r.quantity);
@@ -84,6 +156,17 @@ restaurantangular.controller('cartCtrl', function($scope,$rootScope,services,toa
         localStorage.setItem('cart',JSON.stringify(cart));
     };
 
+    /**
+      * @ngdoc method
+      * @name cartCtrl#checkout
+      *
+      * @methodOf
+      * restaurantangular.controller:cartCtrl
+      *
+      * @description
+      * Checks if the user is logged in
+      * and checks out if true
+    */
     $scope.checkout = function() {
         var data = {
             "cart":$scope.cart.restaurants
@@ -102,6 +185,16 @@ restaurantangular.controller('cartCtrl', function($scope,$rootScope,services,toa
         }
     }
 
+    /**
+      * @ngdoc method
+      * @name cartCtrl#empty
+      *
+      * @methodOf
+      * restaurantangular.controller:cartCtrl
+      *
+      * @description
+      * Empties the cart
+    */
     $scope.empty = function() {
         $scope.cart.restaurants = [];
         $scope.cart.totalprice = 0;

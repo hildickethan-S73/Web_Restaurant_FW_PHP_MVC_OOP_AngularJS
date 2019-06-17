@@ -1,3 +1,10 @@
+/**
+  * @ngdoc service
+  * @name restaurantangular.searchdata
+  * 
+  * @description
+  * Saves the search data in the service
+**/
 restaurantangular.factory("searchdata", [function () {
   return {
     search: {
@@ -8,6 +15,13 @@ restaurantangular.factory("searchdata", [function () {
   }
 }]);
 
+/**
+  * @ngdoc service
+  * @name restaurantangular.CommonService
+  * 
+  * @description
+  * Opens a modal
+**/
 restaurantangular.factory("CommonService", ['$uibModal',function ($uibModal) {
   var service = {};
   service.openModal = openModal;

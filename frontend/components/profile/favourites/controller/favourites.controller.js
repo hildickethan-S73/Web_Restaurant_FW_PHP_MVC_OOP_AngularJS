@@ -1,4 +1,24 @@
-restaurantangular.controller('favCtrl', function ($scope,$rootScope,services,userdata,$q) {
+/**
+  * @this vm
+  * @ngdoc controller
+  * @name restaurantangular.controller:favCtrl
+  *
+  * @description
+  * Controller for favourites
+*/
+restaurantangular.controller('favCtrl', function ($scope,$rootScope,services,userdata) {
+
+    /**
+      * @ngdoc method
+      * @name favCtrl#load
+      *
+      * @methodOf
+      * restaurantangular.controller:favCtrl
+      *
+      * @description
+      * Loads the users favourites and paginates them
+      * - Called in the My favourites tab
+    */
     $scope.load = function() {
         services.get('favourites',`uid-${userdata.user.id}`).then(function(response){
             $scope.pagination = {
@@ -10,6 +30,22 @@ restaurantangular.controller('favCtrl', function ($scope,$rootScope,services,use
         });
     }
 
+    /**
+      * @ngdoc method
+      * @name favCtrl#checkLikes
+      *
+      * @methodOf
+      * restaurantangular.controller:favCtrl
+      *
+      * @description
+      * Called outside of profile
+      * Checks the users favourites
+      * - Gets users favourites
+      * - Pushes the favourite restaurant id into a new array
+      * - Goes through the param restaurants and adds the favourite
+      * 
+      * @param {object} restaurants the relevant restaurants
+    */
     $scope.checkLikes = function(restaurants) {
         $scope.$watch('loggedin',function(){
             // console.log(new Date());
@@ -30,6 +66,16 @@ restaurantangular.controller('favCtrl', function ($scope,$rootScope,services,use
         });
     }
 
+    /**
+      * @ngdoc method
+      * @name favCtrl#totalLikes
+      *
+      * @methodOf
+      * restaurantangular.controller:favCtrl
+      *
+      * @description
+      * Counts the users total favourites
+    */
     $scope.totalLikes = function() {
         $scope.$watch('loggedin',function(){
             if ($rootScope.loggedin) {
@@ -40,6 +86,19 @@ restaurantangular.controller('favCtrl', function ($scope,$rootScope,services,use
         });
     }
 
+    /**
+      * @ngdoc method
+      * @name favCtrl#like
+      *
+      * @methodOf
+      * restaurantangular.controller:favCtrl
+      *
+      * @description
+      * Adds the restaurant to the users favourites
+      * Or unlikes it if it's already there
+      * 
+      * @param {object} r the restaurant
+    */
     $scope.like = function(r) {
         if (!r.liked){
             var data = {
@@ -61,6 +120,20 @@ restaurantangular.controller('favCtrl', function ($scope,$rootScope,services,use
         }
     }
 
+    /**
+      * @ngdoc method
+      * @name favCtrl#unlike
+      *
+      * @methodOf
+      * restaurantangular.controller:favCtrl
+      *
+      * @description
+      * Remove from users favourites
+      * specific to profile My Favourites tab
+      * 
+      * @param {object} r the restaurant
+      * @param {index} index index of the restaurant in array
+    */
     $scope.unlike = function(r,index) {        
         services.delete('favourites',`uid-${userdata.user.id}/rid-${r.rid}`).then(function(response){
             // console.log(response);
@@ -70,6 +143,16 @@ restaurantangular.controller('favCtrl', function ($scope,$rootScope,services,use
         });
     }
 
+    /**
+      * @ngdoc method
+      * @name favCtrl#calcPages
+      *
+      * @methodOf
+      * restaurantangular.controller:favCtrl
+      *
+      * @description
+      * Calculates the pagination
+    */
     function calcPages() {
         $scope.pagination.filteredRestaurants = $scope.pagination.restaurants.slice(0, 3);
         $scope.pageChanged = function() {

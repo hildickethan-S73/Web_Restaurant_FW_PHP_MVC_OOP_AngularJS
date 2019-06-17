@@ -1,3 +1,11 @@
+/**
+  * @this vm
+  * @ngdoc controller
+  * @name restaurantangular.controller:contactCtrl
+  *
+  * @description
+  * Controller for the contact page
+*/
 restaurantangular.controller('contactCtrl', function($scope,services,toastr){
 	$scope.contact = {
         inputName: "",
@@ -6,6 +14,17 @@ restaurantangular.controller('contactCtrl', function($scope,services,toastr){
         inputMessage: ""
     };
     
+
+    /**
+      * @ngdoc method
+      * @name contactCtrl#SubmitContact
+      *
+      * @methodOf
+      * restaurantangular.controller:contactCtrl
+      *
+      * @description
+      * Submits the contact form as an email to the admin
+    */
     $scope.SubmitContact = function () {
         var data = {
             "name": $scope.contact.inputName, 

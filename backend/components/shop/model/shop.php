@@ -1,4 +1,6 @@
 <?php
+// I think none of this is used
+
 /**
  * Save data to go from shop to details
  */
@@ -23,7 +25,7 @@ if (isset($_GET['savesearch']) && $_GET['savesearch']){
 }
 
 /**
- * 
+ * Picks up home search data
  */
 if (isset($_GET['getsearch']) && $_GET['getsearch']){
     if (isset($_SESSION['to_shop']) && $_SESSION['to_shop']){

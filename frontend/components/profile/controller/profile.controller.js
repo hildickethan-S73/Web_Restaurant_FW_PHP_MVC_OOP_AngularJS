@@ -1,5 +1,14 @@
+/**
+  * @this vm
+  * @ngdoc controller
+  * @name restaurantangular.controller:profileCtrl
+  *
+  * @description
+  * Controller for the profile
+*/
 restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services,userdata,toastr) {
     // TABS
+    // tab navigation
     $scope.tab = 1;
 
     $scope.setTab = function (tabId) {
@@ -11,8 +20,9 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
     };
 
     // DROPZONE
+    // dropzone.js configuration
     $scope.dropzoneConfig = {
-        'options': { // passed into the Dropzone constructor
+        'options': {
           'url': 'backend/api/profile/upload-true',
           addRemoveLinks: true,
           acceptedFiles: 'image/*,.jpeg,.jpg,.png'
@@ -27,14 +37,15 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
                     toastr.error(response.error,"Error");
                 } else {
                     var filename = response.data.substring(19);
+                    // don't remember what this is but it was necessary
                     $scope.$apply(function(){
                         $scope.filename = 'backend/'+filename;
                     });
-                    // console.log(userdata.user);
                     console.log($scope.filename);
                 }
             },
             'removedfile': function (file, serverFilename) {
+                // Delete file
                 services.deleteF('profile','avatar').then(function(response){
                     console.log(response);
                     delete $scope.filename;
@@ -45,6 +56,17 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
     
     // TAB 1, UPDATE
     ///////////////////////////////////
+
+    /**
+      * @ngdoc method
+      * @name profileCtrl#update
+      *
+      * @methodOf
+      * restaurantangular.controller:profileCtrl
+      *
+      * @description
+      * Updates whatever the user has changed
+    */
     $scope.update = function() {
         var extension = `username-${userdata.user.username}`;
         var data = {
@@ -78,6 +100,7 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
         updateProfile(extension,data);
     };
 
+    // Initial country and state setting
     var country = null;
     var state = null;
     services.getResource('countries.json').then(function(response){
@@ -102,6 +125,20 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
         });
     });
 
+    /**
+      * @ngdoc method
+      * @name profileCtrl#extend
+      *
+      * @methodOf
+      * restaurantangular.controller:profileCtrl
+      *
+      * @description
+      * Uses angular.extend to the extend the $scope to a directive
+      * 
+      * @param {object} response all countries
+      * @param {object} country users country
+      * @param {object} state users state
+    */
     function extend(response,country,state){
         angular.extend($scope,{
             country : {
@@ -117,6 +154,24 @@ restaurantangular.controller('profileCtrl', function ($scope,$rootScope,services
         });
     }
     
+    /**
+      * @ngdoc method
+      * @name profileCtrl#updateProfile
+      *
+      * @methodOf
+      * restaurantangular.controller:profileCtrl
+      *
+      * @description
+      * Function to make the requests
+      * - Sends PUT request with the provided params
+      * - Checks if it returns a token
+      * - Refreshes with new token
+      * 
+      * - Logs out and throws to home if token is expired
+      * 
+      * @param {string} extension the GET variables
+      * @param {object} data the POST data
+    */
     function updateProfile(extension,data) {
         services.put('login',data,extension).then(function(response){
             if (response['token']){
